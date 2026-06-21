@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victor Romanov — Solutions Architect & AI Consultant</title>
+<meta name="description" content="Victor Romanov — Solutions Architect & AI Consultant. Enterprise IT, cloud and data-center migration, LLM/RAG systems delivered through AI-assisted development. Belgrade, available remote.">
+<meta property="og:title" content="Victor Romanov — Solutions Architect & AI Consultant">
+<meta property="og:description" content="Enterprise IT leadership at scale meets modern AI delivery. Solution architecture, data-center migration, LLM/RAG. Belgrade · remote · open to relocation.">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --bg:#0e1320; --bg2:#131a2b; --panel:#161e30; --panel2:#1c2740;
+    --ink:#eef2fb; --mut:#9db0d2; --soft:#c4d0e8;
+    --line:#243150; --accent:#5aa0f2; --accent2:#74d3c4; --chip:#1d2740;
+    --max:1000px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(14,19,32,.86);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  nav .brand{font-weight:700;letter-spacing:.2px}
+  nav .links{display:flex;gap:20px;flex-wrap:wrap}
+  nav .links a{color:var(--mut);font-size:14px;font-weight:500}
+  nav .links a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:760px){nav .links{display:none}}
+
+  /* hero */
+  header.hero{padding:70px 0 46px;
+    background:radial-gradient(1100px 460px at 15% -8%, rgba(90,160,242,.16), transparent 60%),
+               radial-gradient(900px 420px at 95% 0%, rgba(116,211,196,.10), transparent 55%);
+    border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--accent2);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
+  h1{font-size:46px;line-height:1.08;letter-spacing:-.6px;margin-bottom:16px}
+  .tag{font-size:20px;color:var(--soft);max-width:760px}
+  .sub{margin-top:14px;color:var(--mut);max-width:760px;font-size:16px}
+  .cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-block;padding:11px 18px;border-radius:10px;font-weight:600;font-size:15px;border:1px solid var(--line)}
+  .btn.primary{background:var(--accent);color:#06121f;border-color:var(--accent)}
+  .btn.primary:hover{background:#6fb0f5;text-decoration:none}
+  .btn.ghost{background:var(--panel);color:var(--ink)}
+  .btn.ghost:hover{background:var(--panel2);text-decoration:none}
+  .facts{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)} h1{font-size:34px}.tag{font-size:18px}}
+  .fact{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .fact b{display:block;font-size:24px;color:var(--ink);letter-spacing:-.3px}
+  .fact span{color:var(--mut);font-size:13px}
+
+  /* sections */
+  section{padding:48px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
+  .h2sub{font-size:24px;font-weight:700;letter-spacing:-.3px;margin-bottom:22px}
+  .lead{font-size:18px;color:#dbe4f6;max-width:820px}
+  .lead + .lead{margin-top:14px}
+
+  /* competencies */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .comp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .comp h3{font-size:16px;margin-bottom:10px;color:var(--ink)}
+  .comp .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:#cdd9f0;padding:6px 11px;border-radius:999px;font-size:13.5px}
+
+  /* cases */
+  .cards{display:grid;gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .card h3{font-size:20px;margin-bottom:4px}
+  .card .role{color:var(--mut);font-size:14px;margin-bottom:14px}
+  .badge{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;
+    letter-spacing:.04em;text-transform:uppercase;background:rgba(116,211,196,.14);color:var(--accent2);vertical-align:middle}
+  .card ul{list-style:none;display:grid;gap:9px}
+  .card li{position:relative;padding-left:18px;color:#cdd9f0;font-size:15.5px}
+  .card li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .stack{margin-top:14px;color:var(--mut);font-size:13px;border-top:1px dashed var(--line);padding-top:12px}
+  .stack b{color:var(--soft);font-weight:600}
+
+  /* timeline */
+  .tl{position:relative;margin-top:6px}
+  .tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .item{position:relative;padding:0 0 22px 32px}
+  .item:before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent)}
+  .item .top{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+  .item .pos{font-weight:700;font-size:17px}
+  .item .org{color:var(--mut);font-size:14px}
+  .item .when{color:var(--accent2);font-size:13px;font-weight:600;margin-left:auto}
+  .item p{color:#cdd9f0;font-size:15px;margin-top:6px;max-width:840px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}}
+  .block{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .block h3{font-size:16px;margin-bottom:10px}
+  .block p, .block li{color:#cdd9f0;font-size:15px}
+  .block ul{list-style:none;display:grid;gap:7px}
+  .block li{position:relative;padding-left:16px}
+  .block li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent2)}
+
+  footer{padding:46px 0 70px}
+  .contact{display:grid;gap:9px;font-size:16px;margin-top:6px}
+  .contact .row b{display:inline-block;min-width:104px;color:var(--mut);font-weight:600}
+  .fine{margin-top:24px;color:#6f80a3;font-size:13px;max-width:820px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">Victor Romanov</span>
+    <span class="links">
+      <a href="#profile">Profile</a>
+      <a href="#skills">Expertise</a>
+      <a href="#work">Selected work</a>
+      <a href="#career">Career</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Belgrade, Serbia · Remote-first · Open to relocation</div>
+    <h1>Victor Romanov</h1>
+    <p class="tag">Solutions Architect &amp; AI Consultant — enterprise IT, cloud and data-center migration, and LLM/RAG systems delivered through AI-assisted development.</p>
+    <p class="sub">I design system architecture and drive it to a working product — and I lead the delivery, the vendors and the stakeholders around it. C-level track record at scale, now building AI-powered products end to end.</p>
+    <div class="cta">
+      <a class="btn primary" href="cv.pdf">Download CV (PDF)</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://wa.me/381665375913" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn ghost" href="mailto:victor.romanov.inbox@gmail.com">Email</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>~100</b><span>team led building a bank's IT from scratch</span></div>
+      <div class="fact"><b>4M+</b><span>customer accounts on a city-scale platform</span></div>
+      <div class="fact"><b>1,452 TB</b><span>migrated to a Tier III data center, zero-downtime</span></div>
+      <div class="fact"><b>&gt;$2.4M</b><span>peak annual turnover, own consultancy</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="profile">
+  <div class="wrap">
+    <h2>Profile</h2>
+    <div class="h2sub">Enterprise IT leadership at scale, meeting modern AI delivery</div>
+    <p class="lead">Solutions architect and technical delivery lead with a C-level background in enterprise IT — large-scale banking platforms, data centers, and infrastructure &amp; security systems. I pair that experience with modern solution design: architecting LLM/RAG systems, integrating them with real data and workflows, and driving them to a shipped product.</p>
+    <p class="lead">My approach is <b>AI-assisted delivery</b> — I own the architecture and the decisions, and use modern AI tooling to build and ship faster. I work best where serious infrastructure meets modern AI and a real stakeholder map: legacy modernization, cloud and data-center migration, AI integration, and getting cross-functional delivery over the line.</p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Expertise</h2>
+    <div class="h2sub">What I bring to a project</div>
+    <div class="grid2">
+      <div class="comp">
+        <h3>Architecture &amp; AI</h3>
+        <div class="chips">
+          <span class="chip">Solution architecture</span><span class="chip">System design</span>
+          <span class="chip">AI strategy</span><span class="chip">LLM / RAG integration</span>
+          <span class="chip">Semantic search (pgvector)</span><span class="chip">AI-assisted development</span>
+          <span class="chip">Multi-tenant SaaS</span><span class="chip">Workflow automation</span>
+        </div>
+      </div>
+      <div class="comp">
+        <h3>Infrastructure &amp; Cloud</h3>
+        <div class="chips">
+          <span class="chip">Data-center design &amp; migration</span><span class="chip">VMware vSAN</span>
+          <span class="chip">High availability / DR</span><span class="chip">RTO / RPO</span>
+          <span class="chip">Veeam</span><span class="chip">Cisco networking</span>
+          <span class="chip">Linux (RHEL, Ubuntu)</span><span class="chip">Virtualization</span>
+        </div>
+      </div>
+      <div class="comp">
+        <h3>Enterprise &amp; Security Systems</h3>
+        <div class="chips">
+          <span class="chip">CCTV / video surveillance</span><span class="chip">Access control (PACS)</span>
+          <span class="chip">Fire &amp; alarm systems</span><span class="chip">Structured cabling</span>
+          <span class="chip">Video conferencing</span><span class="chip">Microsoft → Open-source migration</span>
+        </div>
+      </div>
+      <div class="comp">
+        <h3>Delivery &amp; Leadership</h3>
+        <div class="chips">
+          <span class="chip">Technical program management</span><span class="chip">PMO / PMBOK</span>
+          <span class="chip">Team leadership</span><span class="chip">Multi-million-budget ownership</span>
+          <span class="chip">Vendor &amp; stakeholder management</span><span class="chip">ITIL</span>
+          <span class="chip">Tender / RFP</span><span class="chip">Fractional CTO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Selected work</h2>
+    <div class="h2sub">Case studies</div>
+    <div class="cards">
+
+      <div class="card">
+        <h3>TenderSRB — AI SaaS for public-procurement monitoring</h3>
+        <div class="role">Founder &amp; Solution Architect<span class="badge">In active development · pre-launch</span></div>
+        <ul>
+          <li>Designed and built end-to-end — solo, using AI-assisted development — a multi-tenant platform that monitors Serbian public tenders and surfaces the relevant ones automatically.</li>
+          <li>LLM pipeline (Claude API) parses tender specifications into structured summaries and AI-generated email digests.</li>
+          <li>Semantic tender matching over PostgreSQL 16 + pgvector; multi-channel delivery via Telegram and Viber bots and a web cabinet.</li>
+          <li>CI/CD with automated AI code review and auto-deploy; architecture documented across 32 ADRs.</li>
+          <li>Owned every stage: product, solution architecture, delivery and QA.</li>
+        </ul>
+        <div class="stack"><b>Architecture:</b> FastAPI · PostgreSQL 16 / pgvector · Docker · Ubuntu 24.04 VPS · CI/CD with AI review · LLM (Claude API) · Telegram / Viber bots</div>
+      </div>
+
+      <div class="card">
+        <h3>Tier III Data-Center Migration</h3>
+        <div class="role">Solution Architect &amp; Delivery Lead — independent consultancy (flagship project)</div>
+        <ul>
+          <li>Architected and delivered the migration of critical IT infrastructure to a Tier III facility, selected after evaluating 10 data centers across 9 criteria.</li>
+          <li>Migrated 47 hardware units across 6 racks — 22× Dell R660 on VMware vSAN, 6× Dell R760 for backup, 1,452 TB of storage.</li>
+          <li>Zero-downtime cutover via a dark-fiber metro-cluster; RTO of 30 minutes with full disaster-recovery-plan validation.</li>
+        </ul>
+        <div class="stack"><b>Stack:</b> VMware vSAN · Veeam B&amp;R · Cisco Nexus (LACP) · dark-fiber metro-cluster · HA/DR · RTO/RPO</div>
+      </div>
+
+      <div class="card">
+        <h3>Open-source migration &amp; cost reduction</h3>
+        <div class="role">Solution Architect — independent consultancy</div>
+        <ul>
+          <li>Led Microsoft-to-open-source transitions (RHEL, PostgreSQL, open mail stack), eliminating recurring Microsoft licensing costs.</li>
+          <li>Estimated 30–50% reduction in licensing TCO over a three-year horizon, depending on the estate.</li>
+          <li>Designed data-center and video-conferencing infrastructure; ran competitive tender selection for servers and storage; virtualization on VMware / Hyper-V.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Integrated physical-security &amp; infrastructure delivery</h3>
+        <div class="role">Solution Architect &amp; Delivery Lead — independent consultancy</div>
+        <ul>
+          <li>50+ delivered projects integrating CCTV / video surveillance, access control (PACS), and fire &amp; alarm systems with seamless WiFi — frequently as a single converged system per site.</li>
+          <li>Across industrial sites, residential complexes and corporate offices, each with its own physical layout, compliance and uptime requirements.</li>
+          <li>Owned the full delivery lifecycle: site survey and design → equipment and vendor selection → structured cabling → installation, commissioning and handover.</li>
+          <li>Led a small delivery team and managed vendors end to end; peak annual turnover exceeding $2.4M.</li>
+        </ul>
+        <div class="stack"><b>Systems:</b> CCTV / video surveillance · Access control (PACS) · Fire &amp; alarm · Structured cabling · Seamless WiFi · Video conferencing</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="career">
+  <div class="wrap">
+    <h2>Career</h2>
+    <div class="h2sub">From systems engineer to C-level — at scale</div>
+    <div class="tl">
+
+      <div class="item">
+        <div class="top"><span class="pos">Founder &amp; Solution Architect</span><span class="org">— TenderSRB (AI SaaS)</span><span class="when">2024 – Present</span></div>
+        <p>Designed and built an AI-powered procurement-monitoring SaaS end to end using AI-assisted development. In active development / pre-launch.</p>
+      </div>
+
+      <div class="item">
+        <div class="top"><span class="pos">Solution Architect &amp; Delivery Lead</span><span class="org">— Independent IT consultancy (own company)</span><span class="when">2013 – Present</span></div>
+        <p>Enterprise infrastructure, data-center and physical-security projects. Flagship: zero-downtime Tier III data-center migration (47 units, 1,452 TB, RTO 30 min). Microsoft → open-source migrations; 50+ security-system projects; peak annual turnover exceeding $2.4M. Lead a small delivery team.</p>
+      </div>
+
+      <div class="item">
+        <div class="top"><span class="pos">Deputy General Director</span><span class="org">— National telecom / IT services group</span><span class="when">2012 – 2013</span></div>
+        <p>Tender documentation and solution design for a large-scale utility-billing system spanning dozens of regions.</p>
+      </div>
+
+      <div class="item">
+        <div class="top"><span class="pos">IT Director</span><span class="org">— Large municipal IT operator</span><span class="when">2011 – 2012</span></div>
+        <p>Ran IT for a city-scale billing platform covering ~80% of a major capital's housing stock — 4M+ customer accounts. Led data-center relocation, a disaster-recovery rebuild, a new data warehouse, 24/7 service desk and data-protection compliance.</p>
+      </div>
+
+      <div class="item">
+        <div class="top"><span class="pos">IT Director</span><span class="org">— Multi-branch commercial bank</span><span class="when">2010 – 2011</span></div>
+        <p>Owned IT strategy and architecture, reporting to the Chairman of the Board: multi-branch core banking, corporate internet bank, acquiring, ATM cash-in/out and an ITIL service desk; oversaw 1,000 payment terminals across 374 transport hubs.</p>
+      </div>
+
+      <div class="item">
+        <div class="top"><span class="pos">Managing Director, IT</span><span class="org">— Major commercial bank (built from scratch)</span><span class="when">2002 – 2010</span></div>
+        <p>Built the bank's entire IT from the ground up with a team of ~100: core banking, card processing, an ATM network, 12 branches and two data centers. Established a PMBOK-based PMO that cut branch-opening cost ~19% and timelines ~22%; a technology committee reduced time-to-market ~24%. Implemented HA clustering with a 10-minute RTO and host-to-host processing integration.</p>
+      </div>
+
+      <div class="item">
+        <div class="top"><span class="pos">Earlier career</span><span class="org">— Systems engineer → executive roles</span><span class="when"></span></div>
+        <p>Progressed across IT integration, telecom and financial-sector infrastructure: back-office automation, exchange connectivity, fiber-optic line projects and structured cabling for clearing centers. Early engineering work included software development (Asm / C / C++) and standards-based cryptography at a government R&amp;D institute.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Earlier projects</h2>
+    <div class="h2sub">Selected media &amp; telecom builds</div>
+    <div class="two">
+      <div class="block">
+        <h3>VoD &amp; broadcast media platforms</h3>
+        <p>Designed and delivered video-on-demand platforms on set-top-box hardware with broadcast media content — including a self-built delivery platform for a flagship venue.</p>
+      </div>
+      <div class="block">
+        <h3>SMS / MMS content delivery</h3>
+        <p>Built SMS/MMS content-delivery services integrated across national mobile operators for a major consumer brand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <h2>Education &amp; Certifications</h2>
+    <div class="h2sub">Engineering foundations, business and continuous learning</div>
+    <div class="two">
+      <div class="block">
+        <h3>Education</h3>
+        <ul>
+          <li><b>MBA, General &amp; Strategic Management</b> — HSE University, Moscow</li>
+          <li><b>Engineer, Computer Engineering</b> — MEPhI (Moscow Engineering Physics Institute / National Research Nuclear University)</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Certifications &amp; professional development</h3>
+        <ul>
+          <li><b>Recent:</b> Foundations of Project Management (Google) · Google IT Support (5-course specialization) · Cisco Network Security · Red Hat RHEL Fundamentals · Python, JavaScript / HTML / CSS (foundational university courses)</li>
+          <li><b>Earlier:</b> PMBOK / Project Management · ACCA F3 · SWIFT (×2) · Information Security fundamentals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <div class="h2sub">Let's talk</div>
+    <div class="contact">
+      <div class="row"><b>Location</b> Belgrade, Serbia — available remote, open to relocation</div>
+      <div class="row"><b>Phone</b> <a href="https://wa.me/381665375913" target="_blank" rel="noopener">+381 66 537-5913 (WhatsApp)</a></div>
+      <div class="row"><b>Email</b> <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div>
+      <div class="row"><b>LinkedIn</b> <a href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">linkedin.com/in/romanovvictor</a></div>
+      <div class="row"><b>CV</b> <a href="cv.pdf">Download PDF</a></div>
+    </div>
+    <p class="fine">Languages: English (professional working, B2) · Russian (native) · Serbian (in progress). Open to roles in solution architecture, AI consulting and integration (architecture level), technical program management and fractional-CTO engagements.</p>
+  </div>
+</footer>
+
+</body>
+</html>
