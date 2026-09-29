@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spoiled for Choice. The Choice Was One. | Victor Romanov</title>
+<link rel="icon" href="../favicon.ico?v=1" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=1">
+<meta name="description" content="A tour operator split its system across two data centers in one metrocluster. Dark fiber reach and weighted criteria left one site out of dozens. A post by Victor Romanov.">
+<meta property="og:title" content="Spoiled for Choice. The Choice Was One.">
+<meta property="og:description" content="Dozens of data centers on paper. Dark fiber reach and weighted criteria left one. How the target site for a metrocluster was chosen.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://victorromanovsite.github.io/articles/spoiled-for-choice.html">
+<meta name="keywords" content="data center selection, metrocluster, dark fiber, disaster recovery, Tier III, solution architecture">
+<style>
+  :root{--bg:#0e1320;--panel:#161e30;--ink:#eef2fb;--mut:#9db0d2;--soft:#c4d0e8;--line:#243150;--accent:#5aa0f2;--accent2:#74d3c4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  nav{position:sticky;top:0;z-index:20;background:rgba(14,19,32,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  nav .brand{font-weight:700;color:var(--ink)} nav .back{color:var(--mut);font-size:14px;font-weight:500}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  header{padding:56px 0 30px;border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--accent2);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
+  h1{font-size:40px;line-height:1.12;letter-spacing:-.5px;margin-bottom:14px}
+  .meta{color:var(--mut);font-size:14px}
+  article{padding:34px 0 20px}
+  .blk{font-size:18px;color:#dbe4f6;margin-bottom:22px}
+  .blk.end{font-weight:600;color:var(--ink);border-left:3px solid var(--accent2);padding-left:16px;margin-top:30px}
+  figure{margin:30px 0} figure canvas{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line);background:#05080f}
+  figcaption{color:var(--mut);font-size:14px;margin-top:10px;font-style:italic}
+  .tags{color:var(--accent2);font-size:15px;margin-top:10px}
+  footer{border-top:1px solid var(--line);padding:26px 0 50px;color:var(--mut);font-size:14px}
+  @media(max-width:760px){h1{font-size:30px} .blk{font-size:17px}}
+</style>
+<link rel="canonical" href="https://victorromanovsite.github.io/articles/spoiled-for-choice.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Spoiled for Choice. The Choice Was One.",
+  "description": "A tour operator split its system across two data centers in one metrocluster. Dark fiber reach and weighted criteria left one site out of dozens. A post by Victor Romanov.",
+  "datePublished": "2026-08-13",
+  "dateModified": "2026-09-29",
+  "author": {"@type": "Person", "name": "Victor Romanov", "url": "https://victorromanovsite.github.io/"},
+  "mainEntityOfPage": "https://victorromanovsite.github.io/articles/spoiled-for-choice.html",
+  "inLanguage": "en"
+}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../">Victor Romanov</a><a class="back" href="../">&larr; Main page</a></div></nav>
+<header><div class="wrap">
+  <div class="eyebrow">Post</div>
+  <h1>Spoiled for Choice. The Choice Was One.</h1>
+  <div class="meta">Victor Romanov &middot; 13 August 2026 &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7493714115983736832/">Discussion on LinkedIn</a></div>
+</div></header>
+<main class="wrap">
+<article>
+<p class="blk">A large tour operator ran its entire business from a single data center.<br>
+Bookings, payments, the lot.<br>
+One hall. One power chain. One very bad day when the engineering plant failed and everything went dark for hours.</p>
+<p class="blk">For a travel company, dark means customers cannot book and money stops moving.<br>
+The fix was not "find a better data center."<br>
+It was "never stand on one leg again."</p>
+<p class="blk">So the system gets split across two sites.<br>
+The most critical half moves to a new, stronger data center.<br>
+The two halves run as one metrocluster.<br>
+One live system across two data centers, kept in sync over dark fiber.<br>
+Now a single failure cannot take the company offline.</p>
+<figure><canvas id="c" width="1080" height="1080" aria-label="Animation: dozens of candidate data centers across a metro area, the dark-fiber reach of about 30 km cuts most of them, then weighted criteria leave one site at about 18 km of fiber."></canvas><figcaption>The animation from the LinkedIn post: how the constraints narrowed the candidate data centers to one.</figcaption></figure>
+<p class="blk">Which turned an easy question into a hard one.<br>
+Where does the critical half go?</p>
+<p class="blk">The metro area lists dozens of data centers.<br>
+On paper, spoiled for choice.<br>
+Then the requirements walk in.</p>
+<p class="blk">The link between the sites rides dark fiber.<br>
+And dark fiber is measured by cable route, not by the straight line on a map.<br>
+Every duct and splice eats optical budget.<br>
+Past roughly 30 km of route, the light gets too weak for a link you can trust.</p>
+<p class="blk">That one rule did most of the cutting.<br>
+Three sites made the shortlist.</p>
+<p class="blk">A metrocluster rides two diverse fiber routes, so a single cut cannot split it.<br>
+The winning site came back at 17.6 and 31.8 km on its two routes.<br>
+The short one fits the budget with room to spare. The long one is already scraping it.<br>
+The other two sites had no route that fit (42 and 43 km).</p>
+<p class="blk">Distance matters. But it is only the first cut.<br>
+The real scorecard ran deep, every criterion ranked by weight.<br>
+These are the ones that did the cutting:</p>
+<p class="blk">Tier III, concurrently maintainable.<br>
+12+ kW per rack, with headroom.<br>
+Two carriers on-net, sub-5 ms, 99.98% SLA.<br>
+ISO 27001 and PCI DSS.<br>
+A clean incident record, references included.<br>
+Contiguous space for six racks.</p>
+<p class="blk">And a dozen more, ranked below these.</p>
+<p class="blk">One site cleared every line. Roughly 18 km of fiber.<br>
+Not the biggest name. The only one that held.</p>
+<p class="blk">This is the quiet truth of infrastructure.<br>
+You are never spoiled for choice.<br>
+The constraints choose.</p>
+<p class="blk end">You just read them in the right order ...</p>
+<p class="tags">#DataCenter #Infrastructure #SolutionArchitecture #DisasterRecovery #EnterpriseIT</p>
+</article>
+</main>
+<footer><div class="wrap"><a href="../">Victor Romanov</a> &middot; <a href="https://www.linkedin.com/in/romanovvictor">LinkedIn</a> &middot; <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div></footer>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const W=1080,H=1080, SX=430,SY=398;
+const CITYX=576,CITYY=606,CBASE=384;
+const K=42, rkm=km=>K*Math.sqrt(km), R30=rkm(30);
+function mul(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+const rnd=mul(20260811);
+// lobed reach factor (fiber route ≠ straight line → boundary is not a circle)
+const lobe=a=>0.66+0.40*(0.5+0.5*Math.sin(2*a+0.9))+0.13*Math.sin(3*a+2.1);
+const frontier=(a,s)=>R30*lobe(a)*s;
+
+// ---- city outline ----
+const CF=[1.06,0.9,1.13,0.83,1.0,1.14,0.87,1.04,0.81,1.10,0.93], CN=CF.length, CPTS=[];
+for(let i=0;i<CN;i++){const a=i/CN*6.283;CPTS.push([CITYX+Math.cos(a)*CBASE*CF[i],CITYY+Math.sin(a)*CBASE*CF[i]]);}
+function cityPath(){ctx.beginPath();ctx.moveTo((CPTS[0][0]+CPTS[CN-1][0])/2,(CPTS[0][1]+CPTS[CN-1][1])/2);
+  for(let i=0;i<CN;i++){const c=CPTS[i],n=CPTS[(i+1)%CN];ctx.quadraticCurveTo(c[0],c[1],(c[0]+n[0])/2,(c[1]+n[1])/2);}ctx.closePath();}
+
+// ---- helpers ----
+function txt(s,x,y,sz,c,al,w){ctx.font=(w||'600')+' '+sz+"px 'Segoe UI',system-ui,sans-serif";ctx.fillStyle=c;ctx.textAlign=al||'left';ctx.fillText(s,x,y);}
+function rrect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+
+// ---- orthogonal winding fiber path (like ducts along streets) ----
+function makeFiber(ex,ey,s){const dx=ex-SX,dy=ey-SY,p=[[SX,SY]];const hFirst=s[0]<0.5,f=0.28+s[1]*0.4,f2=0.55+s[2]*0.3;
+  if(s[3]<0.35){ // long detour route (winds far)
+    const off=(s[4]<0.5?-1:1)*(70+s[5]*90);
+    if(Math.abs(dx)>Math.abs(dy)){p.push([SX+dx*0.25,SY]);p.push([SX+dx*0.25,SY+off]);p.push([SX+dx*f2,SY+off]);p.push([SX+dx*f2,ey]);p.push([ex,ey]);}
+    else{p.push([SX,SY+dy*0.25]);p.push([SX+off,SY+dy*0.25]);p.push([SX+off,SY+dy*f2]);p.push([ex,SY+dy*f2]);p.push([ex,ey]);}
+  } else if(hFirst){p.push([SX+dx*f,SY]);p.push([SX+dx*f,SY+dy*f2]);p.push([ex,SY+dy*f2]);p.push([ex,ey]);}
+  else{p.push([SX,SY+dy*f]);p.push([SX+dx*f2,SY+dy*f]);p.push([SX+dx*f2,ey]);p.push([ex,ey]);}
+  return p;}
+
+// ---- candidates ----
+const insAng=[-2.5,-1.2,-0.4,0.55,1.3,2.15,3.0,3.7];
+const inside=insAng.map((a,i)=>{const fr=frontier(a,1),ri=fr*(i===0?0.72:0.42+rnd()*0.34);
+  const x=SX+Math.cos(a)*ri,y=SY+Math.sin(a)*ri;
+  return{x,y,ang:a,survivor:i===0,step:i-1,tw:rnd()*6.28,fib:makeFiber(x,y,[rnd(),rnd(),rnd(),0.9,rnd(),rnd()])};});
+const survivor=inside[0];
+// one "close on the map, far by fiber" paradox DC (geometrically near, but excluded)
+const parAng=-0.05, parRi=frontier(parAng,1)+46;
+const paradox={x:SX+Math.cos(parAng)*parRi,y:SY+Math.sin(parAng)*parRi,step:2,tw:0,
+  fib:makeFiber(SX+Math.cos(parAng)*parRi,SY+Math.sin(parAng)*parRi,[0.2,0.5,0.5,0.1,0.2,0.9]),paradox:true};
+const reasons=['Not Tier III — no concurrent maintainability','Power density < 12 kW / rack',
+ 'Fiber route > 30 km  (near on the map, far by fiber)','No dark-fiber carrier on-net',
+ 'Outage history — SLA breaches (24 mo)','No contiguous space for 6 racks',
+ 'RTO / RPO not met under load','Optical budget fails at range'];
+const LEG=['Tier III','Power ≥ 12 kW','Fiber route ≤ 30 km','Dark-fiber on-net',
+ 'Incident-free (24 mo)','Space · 6 racks','RTO / RPO under load','Optical budget OK'];
+// map non-survivor inside dots (steps 0..6) + paradox occupies step 2
+const elimDots=[];
+inside.filter(d=>!d.survivor).forEach(d=>{ if(d.step>=2)d.step+=1; }); // shift to free step 2 for paradox
+inside.filter(d=>!d.survivor).forEach(d=>elimDots.push(d));
+elimDots.push(paradox);
+elimDots.forEach(d=>d.reason=reasons[d.step]);
+const NST=8;
+
+// outside DCs across the city (beyond the lobed frontier)
+const outside=[];{let tr=0;while(outside.length<22&&tr<900){tr++;const x=150+rnd()*820,y=250+rnd()*720;
+  const a=Math.atan2(y-SY,x-SX),r=Math.hypot(x-SX,y-SY);
+  if(r>frontier(a,1)+14&&r<560&&y<980)outside.push({x,y,r,ang:a,fib:makeFiber(x,y,[rnd(),rnd(),rnd(),rnd(),rnd(),rnd()])});}}
+const TOTAL=inside.length+outside.length+1;
+const criteria=['Tier III · concurrently maintainable','12+ kW / rack · N+1 power',
+ 'Dark-fiber on-net · route ≤ 30 km','Clean incident record (24 mo)','Space for 6 racks'];
+
+const DUR=31000;
+const T={fade:[0,.047],contract:[.047,.187],elim:[.187,.814],fin:[.814,1]};
+const STEP=(T.elim[1]-T.elim[0])/NST;
+const seg=(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a)));
+const eIO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, eOut=x=>1-Math.pow(1-x,3);
+
+function bg(){ctx.fillStyle='#05080f';ctx.fillRect(0,0,W,H);}
+
+function city(){
+  // land fill (clearly lighter than background)
+  cityPath();ctx.save();
+  const lg=ctx.createLinearGradient(200,200,960,1000);lg.addColorStop(0,'#14213a');lg.addColorStop(1,'#0f1a30');
+  ctx.fillStyle=lg;ctx.fill();
+  ctx.shadowColor='rgba(90,140,210,0.5)';ctx.shadowBlur=26;ctx.strokeStyle='rgba(150,180,230,0.7)';ctx.lineWidth=2.5;cityPath();ctx.stroke();ctx.shadowBlur=0;
+  ctx.clip();
+  // parks
+  ctx.fillStyle='rgba(42,96,64,0.5)';
+  [[780,300,70],[860,700,80],[300,760,60],[640,880,55]].forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],p[2],0,7);ctx.fill();});
+  // beltway (ring road) + inner ring
+  ctx.strokeStyle='rgba(150,175,215,0.30)';ctx.lineWidth=5;ctx.beginPath();ctx.arc(CITYX,CITYY,266,0,7);ctx.stroke();
+  ctx.strokeStyle='rgba(150,175,215,0.18)';ctx.lineWidth=3;ctx.beginPath();ctx.arc(CITYX,CITYY,150,0,7);ctx.stroke();
+  // radial highways (map-orange)
+  ctx.strokeStyle='rgba(224,150,96,0.30)';ctx.lineWidth=3.2;
+  for(let k=0;k<8;k++){const a=k*0.785+0.2;ctx.beginPath();ctx.moveTo(CITYX,CITYY);ctx.lineTo(CITYX+Math.cos(a)*410,CITYY+Math.sin(a)*410);ctx.stroke();}
+  // secondary street grid (faint)
+  ctx.strokeStyle='rgba(120,150,200,0.07)';ctx.lineWidth=1;
+  for(let gx=220;gx<960;gx+=52){ctx.beginPath();ctx.moveTo(gx,230);ctx.lineTo(gx,990);ctx.stroke();}
+  for(let gy=250;gy<990;gy+=52){ctx.beginPath();ctx.moveTo(200,gy);ctx.lineTo(980,gy);ctx.stroke();}
+  // water: reservoir + river
+  ctx.fillStyle='rgba(28,74,120,0.75)';ctx.strokeStyle='rgba(90,150,210,0.6)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.ellipse(300,470,44,150,-0.25,0,7);ctx.fill();ctx.stroke();
+  ctx.strokeStyle='rgba(64,130,190,0.7)';ctx.lineWidth=9;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(300,300);ctx.bezierCurveTo(320,460,300,560,470,690);ctx.bezierCurveTo(620,810,760,860,952,952);ctx.stroke();
+  ctx.restore();
+  // district labels
+  txt('METRO AREA',CITYX+92,CITYY-322,19,'rgba(150,180,225,0.65)','left','700');
+  txt('NORTH',700,330,16,'rgba(130,160,205,0.5)','left','600');
+  txt('RIVERSIDE',250,610,16,'rgba(130,160,205,0.5)','left','600');
+  txt('EAST END',830,640,16,'rgba(130,160,205,0.5)','left','600');
+  txt('CENTRAL',560,690,16,'rgba(130,160,205,0.5)','left','600');
+}
+function sweep(tw){const a=(tw*0.6)%6.283;ctx.save();ctx.beginPath();ctx.arc(SX,SY,560,0,7);ctx.clip();
+  const g=ctx.createConicGradient(a,SX,SY);g.addColorStop(0,'rgba(56,225,255,0.12)');g.addColorStop(.06,'rgba(56,225,255,0.04)');
+  g.addColorStop(.14,'rgba(56,225,255,0)');g.addColorStop(1,'rgba(56,225,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore();}
+
+function drawFront(scale){ctx.save();const seg=90;ctx.beginPath();
+  for(let i=0;i<=seg;i++){const a=i/seg*6.283,r=frontier(a,scale),x=SX+Math.cos(a)*r,y=SY+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+  ctx.closePath();const zg=ctx.createRadialGradient(SX,SY,0,SX,SY,R30*1.2*scale);
+  zg.addColorStop(0,'rgba(56,225,255,0.04)');zg.addColorStop(.85,'rgba(56,225,255,0.07)');zg.addColorStop(1,'rgba(56,225,255,0.15)');
+  ctx.fillStyle=zg;ctx.fill();ctx.shadowColor='#38e1ff';ctx.shadowBlur=18;ctx.strokeStyle='rgba(56,225,255,0.95)';ctx.lineWidth=3;ctx.stroke();ctx.restore();}
+function inFront(x,y,scale){const a=Math.atan2(y-SY,x-SX),r=Math.hypot(x-SX,y-SY);return r<=frontier(a,scale);}
+
+function fiber(pts,col,alpha,dash,tw){if(alpha<=0.01)return;ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
+  if(dash){ctx.setLineDash([8,11]);ctx.lineDashOffset=-((tw*50)%19);}ctx.shadowColor=col;ctx.shadowBlur=6;
+  ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.stroke();ctx.restore();}
+function dot(x,y,r,col,glow){ctx.save();if(glow){ctx.shadowColor=col;ctx.shadowBlur=glow;}ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.restore();}
+
+function callout(d,text,alpha){ctx.font="700 27px 'Segoe UI',system-ui,sans-serif";
+  const w=ctx.measureText(text).width+74,h=66;
+  let bx=d.x>SX?d.x-w-26:d.x+26, by=d.y>SY?d.y+22:d.y-h-22;
+  bx=Math.max(20,Math.min(W-w-20,bx));by=Math.max(150,Math.min(H-h-70,by));
+  ctx.globalAlpha=alpha;ctx.strokeStyle='rgba(255,96,110,0.6)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(bx<d.x?bx+w:bx,by+h/2);ctx.stroke();
+  ctx.fillStyle='rgba(22,28,46,0.96)';ctx.strokeStyle='rgba(255,96,110,0.8)';ctx.lineWidth=2;rrect(bx,by,w,h,12);ctx.fill();ctx.stroke();
+  txt('✕',bx+22,by+45,32,'#ff606e','left','800');txt(text,bx+52,by+43,27,'#f6dde1','left','700');ctx.globalAlpha=1;}
+
+function draw(t,tw){
+  bg();city();sweep(tw);
+  ctx.textAlign='left';
+  txt('CHOOSING THE TARGET DATA CENTER',60,72,32,'#eaf2ff','left','800');
+  ctx.fillStyle='#38e1ff';ctx.fillRect(60,86,160,4);
+  txt('The constraints choose. You just confirm.',60,120,22,'#a7bade','left','600');
+  ctx.textAlign='center';txt('DATA-CENTER MIGRATION  ·  1 / 7',540,1068,17,'rgba(155,175,215,0.8)','center','700');ctx.textAlign='left';
+
+  const pc=seg(t,T.contract[0],T.contract[1]);
+  const scale=t<T.contract[0]?2.35:(t<T.contract[1]?2.35+(1-2.35)*eIO(pc):1);
+  const ringOn=t>=T.contract[0];
+  let done=0;if(t>=T.elim[0])done=Math.min(NST,Math.floor((t-T.elim[0])/STEP));if(t>=T.elim[1])done=NST;
+  const activeStep=(t>=T.elim[0]&&t<T.elim[1])?Math.floor((t-T.elim[0])/STEP):-1;
+  const stepProg=activeStep>=0?(t-(T.elim[0]+activeStep*STEP))/STEP:0;
+
+  // ---- fiber links (fade as DCs drop) ----
+  outside.forEach(d=>{const alive=inFront(d.x,d.y,scale);fiber(d.fib,'#38e1ff',alive?0.16:Math.max(0,0.16-0.16*seg(scale,1.0,1.25)),false,tw);});
+  elimDots.forEach(d=>{const gone=done>d.step||(activeStep===d.step&&stepProg>0.82);
+    if(gone)fiber(d.fib,'#6b7690',0,false,tw);
+    else if(activeStep===d.step)fiber(d.fib,'#ff606e',0.75,false,tw);
+    else fiber(d.fib,'#38e1ff',0.4,false,tw);});
+  fiber(survivor.fib,'#34e39b', t>=T.contract[0]?0.6+0.2*Math.sin(tw*3):0.4, t>=T.fin[0], tw);
+
+  if(ringOn)drawFront(scale);
+  if(ringOn){ctx.textAlign='right';
+    txt((t<T.elim[0]&&scale>1.03)?'NARROWING THE SEARCH':'DARK-FIBER REACH · ≤ 30 km',1044,SY+6,22,'#38e1ff','right','800');ctx.textAlign='left';}
+
+  // outside dots
+  outside.forEach((d,i)=>{const ap=eOut(seg(t,(i%9)*0.004,0.05+(i%9)*0.004));if(ap<=0)return;
+    const gone=!inFront(d.x,d.y,scale);ctx.globalAlpha=ap;dot(d.x,d.y,gone?4:5,gone?'rgba(120,134,164,0.6)':'rgba(170,188,220,0.9)',0);ctx.globalAlpha=1;});
+  // eliminated inside + paradox
+  elimDots.forEach(d=>{const gone=done>d.step||(activeStep===d.step&&stepProg>0.82);
+    if(gone)dot(d.x,d.y,4,'rgba(120,134,164,0.55)',0);
+    else if(activeStep===d.step){const pl=0.5+0.5*Math.sin(tw*6);dot(d.x,d.y,9+2*pl,'#ff606e',24+10*pl);
+      ctx.strokeStyle='rgba(255,96,110,'+(0.5+0.3*pl)+')';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(d.x,d.y,16+9*pl,0,7);ctx.stroke();}
+    else dot(d.x,d.y,7,'#34e39b',12);});
+  // survivor
+  {const win=t>=T.fin[0]?1:0,pl=0.5+0.5*Math.sin(tw*3+survivor.tw);
+   dot(survivor.x,survivor.y,t>=T.fin[0]?10+2*pl:7,'#34e39b',(t>=T.elim[0]?18:12)+(win?20+8*pl:0));
+   if(win){ctx.strokeStyle='rgba(52,227,155,'+(0.4+0.25*pl)+')';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(survivor.x,survivor.y,18+11*pl,0,7);ctx.stroke();}}
+
+  if(activeStep>=0){const d=elimDots.find(x=>x.step===activeStep);
+    if(d){const a=Math.min(1,stepProg/0.12)*(1-Math.max(0,(stepProg-0.86)/0.14));callout(d,d.reason,a);}}
+
+  if(t>=T.fin[0]){const a=Math.min(1,(t-T.fin[0])/0.05);ctx.globalAlpha=a;
+    txt('TARGET',survivor.x+20,survivor.y-18,22,'#ffd27a','left','800');
+    txt('~18 km · dark-fiber on-net',survivor.x+20,survivor.y+8,17,'#e0c188','left','600');
+    const bx=60,by=712,bw=600,bh=96+criteria.length*32;
+    ctx.fillStyle='rgba(12,22,40,0.95)';ctx.strokeStyle='rgba(52,227,155,0.55)';ctx.lineWidth=2;rrect(bx,by,bw,bh,14);ctx.fill();ctx.stroke();
+    txt('WHY IT WON',bx+24,by+40,22,'#34e39b','left','800');
+    criteria.forEach((c,i)=>{txt('✓',bx+24,by+80+i*32,23,'#34e39b','left','800');txt(c,bx+56,by+80+i*32,21,'#d3e2f6','left','600');});
+    ctx.globalAlpha=1;}
+
+  // source DC
+  const pl=0.5+0.5*Math.sin(tw*2.2);ctx.save();ctx.shadowColor='#ffb454';ctx.shadowBlur=24+10*pl;ctx.fillStyle='#ffb454';
+  ctx.beginPath();ctx.arc(SX,SY,12,0,7);ctx.fill();ctx.restore();
+  ctx.strokeStyle='rgba(255,180,84,'+(0.5*pl+0.2)+')';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(SX,SY,17+7*pl,0,7);ctx.stroke();
+  txt('ANCHOR SITE',SX+24,SY+6,22,'#ffdaa4','left','800');
+
+  let shown=TOTAL;if(t>=T.contract[0])shown=Math.round(TOTAL-(TOTAL-8)*eIO(pc));if(t>=T.elim[0])shown=Math.max(1,8-done);
+  ctx.textAlign='right';txt('CANDIDATE DCs',1022,72,22,'#8aa0c6','right','700');
+  ctx.save();ctx.shadowColor=shown===1?'#ffc25a':'#38e1ff';ctx.shadowBlur=t>T.contract[0]?16:0;
+  txt(String(shown),1022,142,62,shown===1?'#ffc25a':(t>T.contract[0]?'#34e39b':'#eaf2ff'),'right','800');ctx.restore();
+  const sub=t<T.contract[0]?'across the metro':t<T.elim[0]?'within fiber reach':(shown===1?'clears every criterion':'still in the running');
+  txt(sub,1022,174,20,'#8aa0c6','right','600');ctx.textAlign='left';
+
+  // ---- constraints legend (always glowing; active constraint flashes red + grows) ----
+  const colX=[70,400,724], rowY=[984,1016,1048], glow=0.5+0.5*Math.sin(tw*2);
+  for(let i=0;i<8;i++){const x=colX[i%3],y=rowY[Math.floor(i/3)],active=activeStep===i,passed=t>=T.fin[0];
+    let col,sz,mark,wt;
+    ctx.save();
+    if(active){const pv=0.5+0.5*Math.sin(tw*7);col='#ff606e';sz=23+2*pv;mark='✕';wt='800';ctx.shadowColor='#ff606e';ctx.shadowBlur=20;}
+    else if(passed){col='#34e39b';sz=21;mark='✓';wt='700';ctx.shadowColor='rgba(52,227,155,0.6)';ctx.shadowBlur=8;}
+    else{col='rgba(120,205,220,'+(0.5+0.28*glow)+')';sz=21;mark='•';wt='600';ctx.shadowColor='rgba(56,225,255,0.35)';ctx.shadowBlur=6;}
+    txt(mark,x,y,sz,col,'left','800');txt(LEG[i],x+(active?32:24),y,sz,col,'left',wt);
+    ctx.restore();}
+}
+let start=null;function frame(ts){if(start===null)start=ts;const el=ts-start;draw((el%DUR)/DUR,el/1000);requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
