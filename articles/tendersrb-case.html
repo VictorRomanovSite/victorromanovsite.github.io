@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TenderSRB Case Study: an AI Service That Reads Public Tenders | Victor Romanov</title>
+<link rel="icon" href="../favicon.ico?v=1" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=1">
+<meta name="description" content="Case study of TenderSRB, a working multi-tenant AI SaaS that monitors Serbian public procurement, reads tender documents with AI and delivers only relevant tenders. Architecture, key decisions and delivery by Victor Romanov.">
+<meta property="og:title" content="TenderSRB: an AI Service That Reads Public Tenders">
+<meta property="og:description" content="What the client gets, the architecture with animated data flows, five key decisions and the delivery model behind a working AI SaaS for public procurement.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://victorromanovsite.github.io/articles/tendersrb-case.html">
+<meta property="og:image" content="https://victorromanovsite.github.io/og-image.png?v=2">
+<meta name="keywords" content="TenderSRB, AI SaaS, public procurement, LLM, Claude API, PostgreSQL, row-level security, multi-tenant, solution architecture">
+<style>
+  :root{--bg:#0e1320;--panel:#161e30;--ink:#eef2fb;--mut:#9db0d2;--soft:#c4d0e8;--line:#243150;--accent:#5aa0f2;--accent2:#74d3c4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  nav{position:sticky;top:0;z-index:20;background:rgba(14,19,32,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  nav .brand{font-weight:700;color:var(--ink)} nav .back{color:var(--mut);font-size:14px;font-weight:500}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  header{padding:56px 0 30px;border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--accent2);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
+  h1{font-size:40px;line-height:1.12;letter-spacing:-.5px;margin-bottom:14px}
+  h2{font-size:24px;margin:40px 0 14px;letter-spacing:-.2px}
+  h3{font-size:18px;margin:22px 0 8px;color:var(--accent2)}
+  .meta{color:var(--mut);font-size:14px}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+  .fact{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .fact b{display:block;font-size:22px;color:var(--ink)} .fact span{color:var(--mut);font-size:13.5px}
+  article{padding:10px 0 20px}
+  .blk{font-size:17.5px;color:#dbe4f6;margin-bottom:18px}
+  .blk.end{font-weight:600;color:var(--ink);border-left:3px solid var(--accent2);padding-left:16px;margin-top:30px}
+  figure{margin:26px 0} figure svg,figure canvas{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+  figure canvas{background:#0b2a5b}
+  figcaption{color:var(--mut);font-size:14px;margin-top:10px;font-style:italic}
+  .stack{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;color:var(--soft);font-size:15px}
+  .stack b{color:var(--ink)}
+  .archfig svg{border-radius:12px;border:1px solid var(--line)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .legend button{font:600 13px/1 inherit;font-family:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 12px 8px 26px;cursor:pointer;position:relative}
+  .legend button:before{content:"";position:absolute;left:10px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--c,#eef2fb)}
+  .legend button.on{border-color:var(--accent2);background:#1c2a44}
+  .cap{color:var(--soft);font-size:14.5px;margin-top:10px;min-height:44px}
+  .flow,.lbl,.dot{transition:opacity .35s}
+  .wide{max-width:1100px}
+  .pts{list-style:none;display:grid;gap:10px;margin:0 0 14px}
+  .pts li{position:relative;padding-left:18px;font-size:17px;color:#dbe4f6}
+  .pts li:before{content:"";position:absolute;left:0;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+  .facts-note{color:var(--mut);font-size:13px;margin-top:8px}
+  footer{border-top:1px solid var(--line);padding:26px 0 50px;color:var(--mut);font-size:14px}
+  @media(max-width:760px){h1{font-size:30px} .blk{font-size:16.5px} .facts{grid-template-columns:1fr 1fr}}
+</style>
+<link rel="canonical" href="https://victorromanovsite.github.io/articles/tendersrb-case.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "TenderSRB Case Study: an AI Service That Reads Public Tenders",
+  "description": "Case study of TenderSRB, a working multi-tenant AI SaaS that monitors Serbian public procurement, reads tender documents with AI and delivers only relevant tenders.",
+  "datePublished": "2026-09-29",
+  "dateModified": "2026-09-29",
+  "author": {"@type": "Person", "name": "Victor Romanov", "url": "https://victorromanovsite.github.io/"},
+  "mainEntityOfPage": "https://victorromanovsite.github.io/articles/tendersrb-case.html",
+  "inLanguage": "en",
+  "about": {"@type": "SoftwareApplication", "name": "TenderSRB", "url": "https://app.nab.rs", "applicationCategory": "BusinessApplication", "operatingSystem": "Web"}
+}
+</script>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../">Victor Romanov</a><a class="back" href="../">&larr; Main page</a></div></nav>
+<header><div class="wrap">
+  <div class="eyebrow">Case study</div>
+  <h1>TenderSRB: an AI Service That Reads Public Tenders</h1>
+  <div class="meta">Victor Romanov &middot; Founder and AI Solution Architect &middot; Working product in test operation &middot; Figures on 29 September 2026 &middot; <a href="https://app.nab.rs">app.nab.rs</a></div>
+  <div class="facts">
+    <div class="fact"><b>55,291</b><span>tenders in the database</span></div>
+    <div class="fact"><b>28,143</b><span>notifications sent</span></div>
+    <div class="fact"><b>4,453</b><span>automated tests</span></div>
+    <div class="fact"><b>33</b><span>architecture decision records</span></div>
+  </div>
+</div></header>
+<main class="wrap">
+<article>
+
+<h2>The task</h2>
+<p class="blk">A supplier who bids on public tenders has to watch the state procurement portal every day.<br>
+The portal publishes about 40,000 procedures a year.<br>
+Most of them do not fit the company.<br>
+The documents are in Serbian, and the technical specification is often a long PDF file.<br>
+A tender manager can spend hours on search and still miss the right contract.</p>
+
+<h2>What the client gets</h2>
+<h3>Tender matching</h3>
+<ul class="pts">
+<li>The client describes the interest in a search profile, a template.<br>A wizard builds the template from a ready industry package in a few steps.</li>
+<li>Matching has two stages.<br>First a filter: CPV code, region, budget, submission deadline and procedure type.<br>Then keyword rules: "any of" groups, "all of" conditions and stop words, with Serbian word forms.</li>
+<li>All templates can be switched on, switched off or deleted in one place, the "My account" page.</li>
+</ul>
+<h3>Delivery</h3>
+<ul class="pts">
+<li>Telegram: a tender card with action buttons comes right after publication.</li>
+<li>Email: notifications to the inbox.</li>
+<li>Web cabinet: a feed of all matched tenders, sorted by date, template or deadline, with an "all or current only" switch.</li>
+<li>If a channel breaks, for example the client blocks the bot, the service reports it through another channel and shows a banner in the cabinet.</li>
+</ul>
+<h3>Work with a tender</h3>
+<ul class="pts">
+<li>A status funnel: Studying, Participating, Submitted, Won.</li>
+<li>A daily morning summary with the funnel counters and the five nearest deadlines.</li>
+<li>Deadline reminders.<br>A notification when the award decision is published.</li>
+<li>A buyer page with analytics of that buyer's procurements, and an export of the client's own tenders.</li>
+</ul>
+<h3>AI on Claude models</h3>
+<ul class="pts">
+<li>Translation of the tender card into the client's language.</li>
+<li>Analysis of the technical documentation on button: requirements, risks and deadlines.<br>The depth depends on the plan.</li>
+<li>Every model call is checked against the plan limit before it starts and recorded after it ends.<br>When the limit is reached, the client sees it at once and does not get a silent refusal.</li>
+</ul>
+<h3>Public part</h3>
+<ul class="pts">
+<li>An open tender catalog by industry, 43 CPV sections, and by region, 30 regions.</li>
+<li>A sitemap and markup for search engines and AI assistants: JSON-LD and llms.txt.</li>
+</ul>
+
+<figure>
+<canvas id="demo" width="1080" height="720" aria-label="Animation: a new tender appears on the portal, the system matches it with one company profile, a Telegram card with action buttons comes to the company, and after a button press AI reads the specification and lists requirements, risks and deadlines."></canvas>
+<figcaption>Illustration of the client flow. Sample data, not a real tender.</figcaption>
+</figure>
+
+<h2>Architecture</h2>
+<figure class="archfig" style="margin-left:calc(50% - min(50vw - 22px, 550px));margin-right:calc(50% - min(50vw - 22px, 550px))">
+<div class="legend" id="legend">
+  <button data-f="all" class="on">All flows</button>
+  <button data-f="tender" style="--c:#34e39b">Tender data</button>
+  <button data-f="ai" style="--c:#b18cff">AI requests</button>
+  <button data-f="note" style="--c:#38e1ff">Notifications</button>
+  <button data-f="user" style="--c:#5aa0f2">User requests</button>
+  <button data-f="pay" style="--c:#ffd166">Payments</button>
+  <button data-f="ops" style="--c:#ff8fa3">Operations</button>
+</div>
+<svg id="arch" viewBox="0 0 1200 750" role="img" aria-label="Animated TenderSRB architecture with six colored flows: tender data, AI requests, notifications, user requests, payments and operations." xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,Arial,sans-serif">
+<defs>
+  <marker id="m-tender" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#34e39b"/></marker>
+  <marker id="m-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b18cff"/></marker>
+  <marker id="m-note" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38e1ff"/></marker>
+  <marker id="m-user" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5aa0f2"/></marker>
+  <marker id="m-pay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd166"/></marker>
+  <marker id="m-ops" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff8fa3"/></marker>
+</defs>
+<rect width="1200" height="750" fill="#0b1830"/>
+<!-- server container -->
+<rect x="200" y="30" width="790" height="590" rx="16" fill="#0f1d36" stroke="#2b3d63" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="218" y="58" font-size="14" font-weight="700" fill="#74d3c4" letter-spacing="1.5">VPS · DOCKER COMPOSE · 19 SERVICES</text>
+
+<g id="boxes" font-size="13" fill="#c4d0e8" text-anchor="middle">
+  <!-- external -->
+  <rect x="20" y="100" width="160" height="90" rx="12" fill="#1a2440" stroke="#8fa3c9" stroke-width="2"/>
+  <text x="100" y="128" font-size="15" font-weight="700" fill="#eef2fb">State portal</text><text x="100" y="150">eNabavke</text><text x="100" y="170">new tenders nightly</text>
+  <rect x="20" y="250" width="160" height="90" rx="12" fill="#1a2440" stroke="#8fa3c9" stroke-width="2"/>
+  <text x="100" y="278" font-size="15" font-weight="700" fill="#eef2fb">Claude API</text><text x="100" y="300">cheaper model</text><text x="100" y="320">stronger model</text>
+  <rect x="1020" y="250" width="160" height="130" rx="12" fill="#1a2440" stroke="#8fa3c9" stroke-width="2"/>
+  <text x="1100" y="280" font-size="15" font-weight="700" fill="#eef2fb">Subscriber</text><text x="1100" y="306">Telegram app</text><text x="1100" y="328">email inbox</text><text x="1100" y="350">web browser</text>
+  <rect x="1020" y="470" width="160" height="80" rx="12" fill="#1a2440" stroke="#8fa3c9" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="1100" y="498" font-size="15" font-weight="700" fill="#eef2fb">Stripe</text><text x="1100" y="520">checkout</text><text x="1100" y="539" font-size="12">waits for activation</text>
+  <rect x="230" y="660" width="150" height="70" rx="12" fill="#1a2440" stroke="#8fa3c9" stroke-width="2"/>
+  <text x="305" y="688" font-size="15" font-weight="700" fill="#eef2fb">GitHub main</text><text x="305" y="710">tests, AI review</text>
+  <rect x="700" y="660" width="150" height="70" rx="12" fill="#1a2440" stroke="#8fa3c9" stroke-width="2"/>
+  <text x="775" y="688" font-size="15" font-weight="700" fill="#eef2fb">Admin bot</text><text x="775" y="710">@tendersrb_bot</text>
+  <!-- inside -->
+  <rect x="230" y="90" width="150" height="80" rx="12" fill="#161e30" stroke="#34e39b" stroke-width="2"/>
+  <text x="305" y="118" font-size="15" font-weight="700" fill="#eef2fb">Ingest worker</text><text x="305" y="140">fetch, normalize</text><text x="305" y="158">polite rate limit</text>
+  <rect x="440" y="90" width="200" height="240" rx="14" fill="#161e30" stroke="#74d3c4" stroke-width="2.5"/>
+  <text x="540" y="122" font-size="16" font-weight="700" fill="#eef2fb">PostgreSQL 16</text><text x="540" y="142">+ pgvector (next step)</text>
+  <text x="540" y="182">tenders</text><text x="540" y="206">company profiles</text><text x="540" y="230">row-level security</text><text x="540" y="254">delivery outbox</text><text x="540" y="278">AI analyses</text><text x="540" y="302">44 migrations</text>
+  <rect x="700" y="90" width="150" height="80" rx="12" fill="#161e30" stroke="#34e39b" stroke-width="2"/>
+  <text x="775" y="112" font-size="15" font-weight="700" fill="#eef2fb">Routing worker</text><text x="775" y="131" font-size="12">A: CPV, region, budget,</text><text x="775" y="147" font-size="12">deadline, procedure</text><text x="775" y="163" font-size="12">B: keyword rules</text>
+  <rect x="230" y="250" width="150" height="80" rx="12" fill="#161e30" stroke="#b18cff" stroke-width="2"/>
+  <text x="305" y="278" font-size="15" font-weight="700" fill="#eef2fb">AI worker</text><text x="305" y="300">card translation</text><text x="305" y="318">spec analysis on button</text>
+  <rect x="700" y="250" width="150" height="80" rx="12" fill="#161e30" stroke="#38e1ff" stroke-width="2"/>
+  <text x="775" y="278" font-size="15" font-weight="700" fill="#eef2fb">Delivery worker</text><text x="775" y="300">Telegram, email</text><text x="775" y="318">no duplicates, no losses</text>
+  <rect x="440" y="400" width="200" height="80" rx="12" fill="#161e30" stroke="#5aa0f2" stroke-width="2"/>
+  <text x="540" y="428" font-size="15" font-weight="700" fill="#eef2fb">Web cabinet + API</text><text x="540" y="450">FastAPI, HTMX</text><text x="540" y="468">feed, funnel, templates</text>
+  <rect x="700" y="400" width="140" height="80" rx="12" fill="#161e30" stroke="#5aa0f2" stroke-width="2"/>
+  <text x="770" y="428" font-size="15" font-weight="700" fill="#eef2fb">Telegram bot</text><text x="770" y="450">aiogram 3</text><text x="770" y="468">commands, buttons</text>
+  <rect x="870" y="400" width="100" height="80" rx="12" fill="#161e30" stroke="#5aa0f2" stroke-width="2"/>
+  <text x="920" y="428" font-size="15" font-weight="700" fill="#eef2fb">Caddy 2</text><text x="920" y="450">HTTPS</text><text x="920" y="468">proxy</text>
+  <rect x="230" y="530" width="150" height="60" rx="12" fill="#161e30" stroke="#ff8fa3" stroke-width="2"/>
+  <text x="305" y="556" font-size="15" font-weight="700" fill="#eef2fb">Deploy</text><text x="305" y="576">one command, check</text>
+  <rect x="440" y="530" width="200" height="60" rx="12" fill="#161e30" stroke="#8fa3c9" stroke-width="2"/>
+  <text x="540" y="556" font-size="15" font-weight="700" fill="#eef2fb">Redis 7</text><text x="540" y="576">queues, cache, limits</text>
+  <rect x="700" y="530" width="150" height="60" rx="12" fill="#161e30" stroke="#ff8fa3" stroke-width="2"/>
+  <text x="775" y="556" font-size="15" font-weight="700" fill="#eef2fb">Monitoring</text><text x="775" y="576">daily report, backups</text>
+</g>
+
+<g id="lines" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <g class="flow" data-f="tender" stroke="#34e39b" marker-end="url(#m-tender)">
+    <path id="g1" d="M180 145 H226"/><path id="g2" d="M380 130 H436"/><path id="g3" d="M640 115 H696"/>
+    <path id="g4" d="M700 150 H644"/><path id="g5" d="M440 275 H384"/><path id="g6" d="M380 305 H436"/><path id="g7" d="M640 290 H696"/>
+  </g>
+  <g class="flow" data-f="ai" stroke="#b18cff" marker-end="url(#m-ai)">
+    <path id="p1" d="M230 275 H184"/><path id="p2" d="M180 305 H226"/>
+  </g>
+  <g class="flow" data-f="note" stroke="#38e1ff" marker-end="url(#m-note)">
+    <path id="c1" d="M850 290 H1016"/>
+  </g>
+  <g class="flow" data-f="user" stroke="#5aa0f2" marker-end="url(#m-user)">
+    <path id="b1" d="M1040 380 V440 H974"/><path id="b2" d="M870 440 H844"/><path id="b3" d="M920 480 V505 H540 V484"/>
+    <path id="b4" d="M540 400 V334"/><path id="b5" d="M770 400 V350 H600 V334"/>
+  </g>
+  <g class="flow" data-f="pay" stroke="#ffd166" stroke-dasharray="7 6" marker-end="url(#m-pay)">
+    <path id="y1" d="M1100 380 V466"/><path id="y2" d="M1020 512 H945 V484"/>
+  </g>
+  <g class="flow" data-f="ops" stroke="#ff8fa3" marker-end="url(#m-ops)">
+    <path id="o1" d="M305 660 V594"/><path id="o2" d="M775 590 V656"/>
+  </g>
+</g>
+
+<g font-size="11.5" fill="#9db0d2" text-anchor="middle">
+  <text class="lbl" data-f="tender" x="203" y="137">tenders</text>
+  <text class="lbl" data-f="tender" x="670" y="106">notify</text>
+  <text class="lbl" data-f="tender" x="670" y="166">outbox</text>
+  <text class="lbl" data-f="ai" x="205" y="266">prompt</text>
+  <text class="lbl" data-f="ai" x="205" y="322">JSON</text>
+  <text class="lbl" data-f="note" x="935" y="281">matched tenders only</text>
+  <text class="lbl" data-f="pay" x="982" y="503">webhook</text>
+  <text class="lbl" data-f="ops" x="330" y="630">deploy</text>
+  <text class="lbl" data-f="ops" x="800" y="630">alerts</text>
+</g>
+<g id="dots"></g>
+</svg>
+<div class="cap" id="archcap">Tender data, AI requests, notifications, user requests, payments and operations. Click a color to see one flow.</div>
+</figure>
+<script>
+(function(){
+const svg=document.getElementById('arch'),NS='http://www.w3.org/2000/svg',dots=svg.getElementById('dots');
+const col={tender:'#34e39b',ai:'#b18cff',note:'#38e1ff',user:'#5aa0f2',pay:'#ffd166',ops:'#ff8fa3'};
+const seq={tender:['g1','g2','g3','g4','g5','g6','g7'],ai:['p1','p2'],note:['c1'],user:['b1','b2','b3','b4','b5'],pay:['y1','y2'],ops:['o1','o2']};
+const cap={all:'Tender data, AI requests, notifications, user requests, payments and operations. Click a color to see one flow.',
+ tender:'Tender data: the portal, ingest, the database, routing by filters and keyword rules, the delivery queue, AI and delivery. Each stage is a separate service, so a failure in one stage does not stop the others.',
+ ai:'AI requests: card translation and specification analysis on button. Every model call is checked against the plan limit before it starts and recorded after it ends.',
+ note:'Notifications: only matched tenders go to Telegram and email, with no duplicates and no losses. If a channel breaks, the service reports it through another channel and shows a banner in the cabinet.',
+ user:'User requests: the browser and Telegram commands come through Caddy to the web cabinet and the bot. The bot and the API work under a restricted database role, so row-level security guards every query.',
+ pay:'Payments: Stripe checkout and webhook are built. They wait for activation.',
+ ops:'Operations: the main branch deploys with one command and a check after each deploy. A daily flow report and service alerts go to a separate Telegram bot. Regular database backups and a disaster recovery plan. No personal data in the logs.'};
+for(const [f,ids] of Object.entries(seq)){ids.forEach((id,i)=>{for(let k=0;k<2;k++){
+  const p=svg.getElementById(id),len=p.getTotalLength(),dur=Math.max(1.2,len/90);
+  const c=document.createElementNS(NS,'circle');c.setAttribute('r','5.5');c.setAttribute('fill',col[f]);c.setAttribute('class','dot');c.dataset.f=f;
+  const a=document.createElementNS(NS,'animateMotion');a.setAttribute('dur',dur.toFixed(2)+'s');a.setAttribute('repeatCount','indefinite');a.setAttribute('begin',(k*dur/2+i*0.25).toFixed(2)+'s');
+  const m=document.createElementNS(NS,'mpath');m.setAttributeNS('http://www.w3.org/1999/xlink','href','#'+id);m.setAttribute('href','#'+id);
+  a.appendChild(m);c.appendChild(a);dots.appendChild(c);}});}
+const btns=[...document.querySelectorAll('#legend button')],capEl=document.getElementById('archcap');
+function show(f){btns.forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+  svg.querySelectorAll('.flow,.lbl,.dot').forEach(e=>{e.style.opacity=(f==='all'||e.dataset.f===f)?1:0.08});
+  capEl.textContent=cap[f];}
+let tour=true,ti=0;const order=['tender','ai','note','user','pay','ops','all'];
+btns.forEach(b=>b.addEventListener('click',()=>{tour=false;show(b.dataset.f)}));
+setInterval(()=>{if(!tour)return;show(order[ti%order.length]);ti++;},6000);
+window.__archShow=show;
+})();
+</script>
+
+<h2>Five decisions that shaped the system</h2>
+<h3>1. One shared bot for all companies</h3>
+<p class="blk">An early plan was a separate bot for each subscriber.<br>
+With many companies, that means many tokens, many webhooks and many points of failure.<br>
+So there is one bot, and each company has its own profiles in the database.<br>
+A routing worker compares every new tender with all profiles.</p>
+
+<h3>2. The database itself keeps client data apart</h3>
+<p class="blk">Every client table has PostgreSQL row-level security rules.<br>
+The bot and the API work under a restricted database role.<br>
+This role is not a superuser and cannot bypass the rules.<br>
+The data of one client stays closed to another client even if the code has a bug.</p>
+
+<h3>3. Every stage is a separate service</h3>
+<p class="blk">Intake, normalization, matching, the delivery queue, AI and sending run as separate services, 19 in total.<br>
+A failure in one stage does not stop the others.<br>
+The delivery queue protects against repeated sending, so there are no duplicates and no losses.<br>
+The service does not send to a channel that is known to be broken.</p>
+
+<h3>4. AI on request, with a limit check on every call</h3>
+<p class="blk">The client presses a button, and AI reads the specification files.<br>
+The answer lists requirements, risks and deadlines, and its depth depends on the plan.<br>
+Each call passes a limit check before it starts and goes to the usage records after it ends.<br>
+AI cost stays under control, and the client always knows the reason for a refusal.</p>
+
+<h3>5. Care for the data source</h3>
+<p class="blk">Requests to the state portal go with a rate limit.<br>
+When the portal is overloaded, the intake slows down on its own.<br>
+From the first phase, the data model also has a country registry, so a new market needs a new source, not a new product.</p>
+
+<h2>How it was built</h2>
+<p class="blk">I am the architect and the delivery lead.<br>
+I set the boundaries, give tasks to people and AI agents, accept the result and assemble it into the product.<br>
+Two AI agents do the daily engineering work.<br>
+The coordinator agent sets tasks, checks the result with its own runs and accepts the changes.<br>
+The worker agent writes the code and the tests, and adds a document with the commands to repeat every check.<br>
+Every change passes the linter, the formatter, the full test suite with a coverage threshold and an automated review in CI.<br>
+Changes to database migrations, security and authorization, payments, infrastructure and the public site wait for my manual approval.<br>
+Everything else merges automatically after a green CI run.<br>
+The service runs on a VPS in Europe, deploys from the main branch with one command and is checked after every deploy.</p>
+
+<div class="stack"><b>Stack:</b> Python &middot; FastAPI &middot; PostgreSQL 16 + pgvector &middot; Redis 7 &middot; aiogram 3 &middot; Jinja2 + HTMX &middot; Claude API &middot; Docker Compose &middot; Caddy (TLS) &middot; GitHub CI</div>
+
+<h2>Status</h2>
+<p class="blk">The platform works on real data in test operation.<br>
+By 29 September 2026 it holds 55,291 tenders and has sent 28,143 notifications.<br>
+The code base has 878 commits since May 2026.<br>
+Plans: Free, Pro at 29 euro per month, Business at 79 euro per month, and Enterprise on request.<br>
+Stripe payments are built in the code: subscription checkout, webhooks, renewal and expiry emails.<br>
+They will go live when the company details are ready.</p>
+
+<h3>In development</h3>
+<ul class="pts">
+<li>Semantic matching on pgvector.<br>The pgvector 0.8.2 extension, the vector fields for tenders and profiles and the similarity index already work in production.<br>The matching code has a third stage for it.<br>The next step is to compute the vectors and switch the stage on.<br>Then the service will find tenders that are close in meaning even without the same keywords.</li>
+<li>AI email digests.<br>An email with the tenders of a period and a short AI summary.<br>The email channel and the daily summary are already there.</li>
+</ul>
+
+<p class="blk end">Watch, match, read, deliver.<br>
+The same pattern fits any stream of documents that a team must not miss.</p>
+
+</article>
+
+</main>
+<footer><div class="wrap"><a href="../">Victor Romanov</a> &middot; <a href="https://www.linkedin.com/in/romanovvictor">LinkedIn</a> &middot; <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div></footer>
+<script>
+const c=document.getElementById('demo'),x=c.getContext('2d');
+const W=1080,H=720,DUR=20000;
+const BG='#0b2a5b',WHITE='#ffffff',MUT='#9fb3d6',DIM='#3d5a8a',GREEN='#34e39b',CY='#38e1ff',AMB='#ffb454',PUR='#b18cff';
+const F='"Segoe UI",Roboto,Arial,sans-serif';
+function cl(v,a,b){return Math.max(a,Math.min(b,v))}
+function ease(p){p=cl(p,0,1);return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2}
+function seg(ms,a,b){return cl((ms-a)/(b-a),0,1)}
+function rr(x0,y0,w,h,r,stroke,fill,lw){x.save();x.lineWidth=lw||3;x.strokeStyle=stroke;x.fillStyle=fill;x.beginPath();x.roundRect(x0,y0,w,h,r);x.fill();x.stroke();x.restore()}
+function t(s,px,py,size,col,align,weight){x.save();x.font=(weight||'700')+' '+size+'px '+F;x.fillStyle=col;x.textAlign=align||'left';x.textBaseline='middle';x.fillText(s,px,py);x.restore()}
+function flow(pts,col,ms){x.save();x.lineCap='round';x.lineJoin='round';x.beginPath();x.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)x.lineTo(pts[i][0],pts[i][1]);
+ x.strokeStyle=col;x.globalAlpha=.3;x.lineWidth=8;x.stroke();x.globalAlpha=1;x.setLineDash([16,14]);x.lineDashOffset=-ms*0.06;x.lineWidth=4;x.stroke();x.restore()}
+function draw(ms){
+ x.fillStyle=BG;x.fillRect(0,0,W,H);
+ t('FROM PORTAL TO CLIENT',W/2,40,22,CY,'center','700');
+ // 1 tender
+ const a1=ease(seg(ms,300,1300));
+ x.save();x.globalAlpha=a1;
+ rr(30,80,300,230,14,WHITE,'rgba(255,255,255,0.06)');
+ t('STATE PORTAL',50,108,17,MUT);t('New tender',50,144,25,WHITE,'left','800');
+ t('Supply of video',50,184,19,WHITE,'left','600');t('surveillance equipment',50,210,19,WHITE,'left','600');
+ t('CPV 32323500 · Region: Belgrade',50,248,16,MUT,'left','600');t('Deadline: 14 days',50,276,16,MUT,'left','600');
+ x.restore();
+ // 2 profiles
+ const a2=ease(seg(ms,3000,3800)),hit=ms>4600;
+ if(a2>0)flow([[330,195],[380,195]],GREEN,ms);
+ x.save();x.globalAlpha=a2;
+ t('COMPANY TEMPLATES',390,98,17,MUT);
+ for(const [n,y] of [['Road works',140],['Security systems',200],['Medical supplies',260]]){const on=hit&&n==='Security systems';
+   rr(380,y-25,290,50,10,on?GREEN:DIM,on?'rgba(52,227,155,0.14)':'rgba(255,255,255,0.03)',on?4:2);
+   t(n,400,y,19,on?WHITE:MUT,'left','700');if(hit)t(on?'match':'skip',655,y,15,on?GREEN:DIM,'right','700');}
+ x.restore();
+ // 3 telegram card
+ const a3=ease(seg(ms,6000,6800));
+ if(a3>0)flow([[670,200],[720,200]],CY,ms);
+ x.save();x.globalAlpha=a3;
+ rr(720,80,330,300,22,WHITE,'rgba(255,255,255,0.05)');
+ t('TELEGRAM',742,106,15,MUT);
+ rr(740,124,290,160,14,CY,'rgba(56,225,255,0.10)',2);
+ t('New tender for your template',756,150,17,WHITE,'left','800');
+ t('Video surveillance equipment',756,180,16,WHITE,'left','600');
+ t('Region: Belgrade',756,206,15,MUT,'left','600');
+ t('Deadline in 14 days',756,232,15,AMB,'left','700');
+ t('Translated to your language',756,258,14,MUT,'left','600');
+ const press=ms>9800&&ms<10400;
+ rr(740,296,140,64,12,press?PUR:DIM,press?'rgba(177,140,255,0.35)':'rgba(255,255,255,0.05)',2);t('AI analysis',810,328,16,WHITE,'center','700');
+ rr(890,296,140,64,12,DIM,'rgba(255,255,255,0.05)',2);t('Studying',960,328,16,WHITE,'center','700');
+ x.restore();
+ // 4 AI analysis
+ const a4=ease(seg(ms,10400,11200));
+ if(a4>0)flow([[810,380],[810,420]],PUR,ms);
+ x.save();x.globalAlpha=a4;
+ rr(380,420,670,190,14,PUR,'rgba(177,140,255,0.08)');
+ t('AI READS THE SPECIFICATION · 38 PAGES',400,448,16,PUR);
+ const L=[['Requirements','120 IP cameras, 30 days of video storage'],['Risks','installation within 20 days of signing'],['Deadlines','questions in 7 days, bids in 14 days']];
+ const shown=Math.floor(seg(ms,11600,15200)*L.length+1e-4);
+ for(let i=0;i<L.length;i++){if(i<shown){t(L[i][0],400,490+i*40,17,WHITE,'left','800');t(L[i][1],560,490+i*40,17,MUT,'left','600');}}
+ x.restore();
+ // caption
+ let c1;
+ if(ms<3000)c1='1. A new tender appears on the state portal.';
+ else if(ms<6000)c1='2. Filters and keyword rules check every template.';
+ else if(ms<9800)c1='3. A card with action buttons comes to Telegram.';
+ else c1='4. On button press, AI lists requirements, risks and deadlines.';
+ const k=[0,3000,6000,9800].filter(v=>v<=ms).pop();
+ x.save();x.globalAlpha=ease(seg(ms,k,k+500));t(c1,30,672,25,WHITE,'left','800');x.restore();
+}
+window.renderAt=(ms)=>draw(((ms%DUR)+DUR)%DUR);
+{let s=performance.now();(function loop(){draw(window.__t!=null?window.__t:(performance.now()-s)%DUR);requestAnimationFrame(loop)})();}
+</script>
+</body>
+</html>
