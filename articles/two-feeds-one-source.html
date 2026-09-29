@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two City Power Feeds, One Source | Victor Romanov</title>
+<link rel="icon" href="../favicon.ico?v=1" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=1">
+<meta name="description" content="Two city power feeds looked like redundancy, but both came from the same substation. How a generator became the real second source. A post by Victor Romanov.">
+<meta property="og:title" content="Two City Power Feeds, One Source">
+<meta property="og:description" content="Two feeds looked like redundancy, but both came from the same substation. Count power sources, not cables.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://victorromanovsite.github.io/articles/two-feeds-one-source.html">
+<meta name="keywords" content="data center, critical power, UPS, server room, ATS, generator, power redundancy">
+<style>
+  :root{--bg:#0e1320;--panel:#161e30;--ink:#eef2fb;--mut:#9db0d2;--soft:#c4d0e8;--line:#243150;--accent:#5aa0f2;--accent2:#74d3c4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  nav{position:sticky;top:0;z-index:20;background:rgba(14,19,32,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  nav .brand{font-weight:700;color:var(--ink)} nav .back{color:var(--mut);font-size:14px;font-weight:500}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  header{padding:56px 0 30px;border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--accent2);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
+  h1{font-size:40px;line-height:1.12;letter-spacing:-.5px;margin-bottom:14px}
+  .meta{color:var(--mut);font-size:14px}
+  article{padding:34px 0 20px}
+  .blk{font-size:18px;color:#dbe4f6;margin-bottom:22px}
+  .blk.end{font-weight:600;color:var(--ink);border-left:3px solid var(--accent2);padding-left:16px;margin-top:30px}
+  figure{margin:30px 0} figure canvas{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line);background:#0b2a5b}
+  figcaption{color:var(--mut);font-size:14px;margin-top:10px;font-style:italic}
+  .tags{color:var(--accent2);font-size:15px;margin-top:10px}
+  footer{border-top:1px solid var(--line);padding:26px 0 50px;color:var(--mut);font-size:14px}
+  @media(max-width:760px){h1{font-size:30px} .blk{font-size:17px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="../">Victor Romanov</a><a class="back" href="../">&larr; Main page</a></div></nav>
+<header><div class="wrap">
+  <div class="eyebrow">Post</div>
+  <h1>Two City Power Feeds, One Source</h1>
+  <div class="meta">Victor Romanov &middot; 29 September 2026 &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7510690962780880896/">Discussion on LinkedIn</a></div>
+</div></header>
+<main class="wrap">
+<article>
+<p class="blk">Two city power feeds.<br>
+That looks like redundancy.</p>
+<p class="blk">But in one of my server room projects, both feeds came from the same substation.<br>
+Two cables, one source.<br>
+One fault at that substation would take out both feeds at the same time.</p>
+<p class="blk">So the power design had to create a real second source.<br>
+In stage two we added a generator and connected it to both ATS units.<br>
+A bus-tie switch links the two sides.<br>
+Two UPS with their own batteries and bypass carry the racks until the generator takes the load.<br>
+Every rack gets two PDUs, A and B, from two separate UPS lines.</p>
+<p class="blk">The animation shows the scenario this design was built for.</p>
+<figure><canvas id="pw" width="1080" height="1350" aria-label="Animation: two city feeds come from one substation, the substation fails, UPS batteries carry the racks, a generator on both ATS units becomes the real second source"></canvas><figcaption>Power design of the server room: two city feeds, one substation, a generator in stage two, two UPS lines to racks A and B.</figcaption></figure>
+<p class="blk end">Count power sources, not cables.</p>
+<p class="tags">#DataCenter #CriticalPower #UPS #ServerRoom</p>
+</article>
+</main>
+<footer><div class="wrap"><a href="../">Victor Romanov</a> &middot; <a href="https://www.linkedin.com/in/romanovvictor">LinkedIn</a> &middot; <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div></footer>
+<script>
+const c=document.getElementById('pw'),x=c.getContext('2d');
+const W=1080,H=1350,DUR=26000;
+const BG='#0b2a5b',WHITE='#ffffff',MUT='#9fb3d6',DIM='#3d5a8a',GREEN='#34e39b',RED='#ff606e',AMB='#ffb454',CY='#38e1ff';
+const F='"DejaVu Sans","Segoe UI",Arial,sans-serif';
+function cl(v,a,b){return Math.max(a,Math.min(b,v))}
+function ease(p){p=cl(p,0,1);return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2}
+function seg(ms,a,b){return cl((ms-a)/(b-a),0,1)}
+function box(x0,y0,w,h,col,fill,lw){x.save();x.lineWidth=lw||3;x.strokeStyle=col;x.fillStyle=fill||'rgba(255,255,255,0.04)';x.beginPath();x.roundRect(x0,y0,w,h,10);x.fill();x.stroke();x.restore()}
+function txt(s,px,py,size,col,align,weight){x.save();x.font=(weight||'700')+' '+size+'px '+F;x.fillStyle=col;x.textAlign=align||'center';x.textBaseline='middle';x.fillText(s,px,py);x.restore()}
+function path(pts,col,on,ms,alpha){x.save();x.globalAlpha=alpha==null?1:alpha;x.lineCap='round';x.lineJoin='round';
+ x.beginPath();x.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)x.lineTo(pts[i][0],pts[i][1]);
+ if(on){x.strokeStyle=col;x.globalAlpha*=0.35;x.lineWidth=8;x.stroke();x.globalAlpha=alpha==null?1:alpha;x.setLineDash([18,16]);x.lineDashOffset=-ms*0.06;x.lineWidth=5;x.stroke();}
+ else{x.strokeStyle=DIM;x.lineWidth=5;x.setLineDash([]);x.stroke();}
+ x.restore()}
+function battery(x0,y0,level,col,left){x.save();x.strokeStyle=WHITE;x.lineWidth=3;x.strokeRect(x0,y0,90,54);x.fillStyle=WHITE;x.fillRect(left?x0-8:x0+90,y0+17,8,20);
+ x.fillStyle=col;x.fillRect(x0+6,y0+6,78*level,42);x.restore();txt('BATTERY',x0+45,y0+78,20,MUT,'center','700')}
+function rotor(cx,cy,r,ang,col){x.save();x.translate(cx,cy);x.strokeStyle=col;x.lineWidth=3;x.beginPath();x.arc(0,0,r,0,Math.PI*2);x.stroke();
+ x.rotate(ang);for(let k=0;k<3;k++){x.rotate(Math.PI*2/3);x.beginPath();x.moveTo(0,0);x.lineTo(0,-r+5);x.stroke();}x.restore()}
+function draw(ms){
+ x.fillStyle=BG;x.fillRect(0,0,W,H);
+ // header
+ txt('POWER DESIGN · SERVER ROOM',W/2,62,24,CY,'center','700');
+ txt('How many power sources?',W/2,112,46,WHITE,'center','800');
+ x.fillStyle=CY;x.fillRect(W/2-120,145,240,4);
+ // phases
+ const reveal=ease(seg(ms,4500,6500));
+ const fault=ms>=9000;
+ const gIn=ease(seg(ms,14000,15500));
+ const genOn=ms>=15800;
+ const cityOn=!fault;
+ // battery level
+ let lvl=1;if(ms>9000&&ms<15800)lvl=1-0.45*seg(ms,9000,15800);else if(ms>=15800)lvl=0.55+0.45*seg(ms,15800,26000);
+ const onBatt=fault&&!genOn;
+ const flowCol=onBatt?AMB:GREEN;
+ // substation
+ if(reveal>0){x.save();x.globalAlpha=reveal;
+   const sc=fault?(Math.floor(ms/250)%2?RED:'#b83040'):WHITE;
+   box(400,185,280,86,fault?RED:WHITE,fault?'rgba(255,96,110,0.15)':'rgba(255,255,255,0.06)',4);
+   txt('SUBSTATION',540,218,28,fault?RED:WHITE,'center','800');
+   txt(fault?'FAULT':'one source',540,250,20,fault?RED:MUT,'center','700');
+   x.restore();
+   path([[470,271],[470,305],[270,305],[270,330]],GREEN,cityOn,ms,reveal);
+   path([[610,271],[610,305],[810,305],[810,330]],GREEN,cityOn,ms,reveal);
+ }
+ // feeds
+ path([[270,330],[270,420]],GREEN,cityOn,ms);
+ path([[810,330],[810,420]],GREEN,cityOn,ms);
+ txt('CITY FEED 1',250,375,22,cityOn?WHITE:MUT,'right','700');
+ txt('CITY FEED 2',830,375,22,cityOn?WHITE:MUT,'left','700');
+ if(ms<4500){txt('?',540,250,64,MUT,'center','800');}
+ // genset
+ if(gIn>0){x.save();x.globalAlpha=gIn;
+   box(440,395,200,130,genOn?GREEN:AMB,'rgba(255,180,84,0.08)',4);
+   txt('GENSET',540,420,26,WHITE,'center','800');
+   rotor(540,470,30,genOn?ms*0.012:0,genOn?GREEN:AMB);
+   txt('STAGE 2',540,512,18,AMB,'center','700');
+   x.restore();
+   path([[440,460],[350,460]],GREEN,genOn,ms,gIn);
+   path([[640,460],[730,460]],GREEN,genOn,ms,gIn);
+ }
+ // ATS
+ const src=genOn?'GEN':(fault?'NO INPUT':'CITY');
+ const srcCol=genOn?GREEN:(fault?RED:GREEN);
+ for(const [x0,n] of [[190,1],[730,2]]){box(x0,420,160,80,WHITE);txt('ATS '+n,x0+80,448,26,WHITE,'center','800');txt(src,x0+80,480,18,srcCol,'center','700');}
+ // bus-tie
+ const busOn=cityOn||genOn;
+ path([[270,500],[270,640]],GREEN,busOn,ms);path([[810,500],[810,640]],GREEN,busOn,ms);
+ x.save();x.strokeStyle=MUT;x.lineWidth=4;x.setLineDash([10,10]);x.beginPath();x.moveTo(270,570);x.lineTo(505,570);x.moveTo(575,570);x.lineTo(810,570);x.stroke();x.setLineDash([]);
+ x.beginPath();x.moveTo(505,570);x.lineTo(572,548);x.stroke();x.restore();
+ txt('BUS-TIE',540,605,20,MUT,'center','700');
+ // UPS + batteries
+ for(const [x0,bx,n] of [[180,50,1],[720,940,2]]){
+   box(x0,640,180,100,WHITE);txt('UPS '+n,x0+90,675,28,WHITE,'center','800');txt('with bypass',x0+90,712,18,MUT,'center','700');
+   battery(bx,660,lvl,onBatt?AMB:GREEN,n==2);
+   const bl=n==1?[[148,687],[180,687]]:[[932,687],[900,687]];
+   path(bl,AMB,onBatt,ms);
+ }
+ // distribution
+ path([[270,740],[270,810]],flowCol,true,ms);path([[810,740],[810,810]],flowCol,true,ms);
+ for(const [x0,n] of [[180,1],[720,2]]){box(x0,810,180,76,WHITE);txt('PANELS '+n,x0+90,848,24,WHITE,'center','800');}
+ // racks
+ path([[270,886],[270,990],[330,990]],flowCol,true,ms);
+ path([[810,886],[810,1100],[750,1100]],flowCol,true,ms);
+ box(330,960,420,170,WHITE,'rgba(255,255,255,0.03)');
+ x.fillStyle=flowCol;x.globalAlpha=0.9;x.fillRect(345,975,390,28);x.fillRect(345,1087,390,28);x.globalAlpha=1;
+ txt('PDU A',540,989,20,BG,'center','800');txt('PDU B',540,1101,20,BG,'center','800');
+ for(let k=0;k<4;k++){const rx=362+k*96;x.strokeStyle=WHITE;x.lineWidth=2;x.strokeRect(rx,1015,70,62);
+   for(let j=0;j<3;j++){x.fillStyle=(Math.floor(ms/400+k+j)%3)?flowCol:WHITE;x.fillRect(rx+10,1024+j*18,8,8);x.fillStyle=DIM;x.fillRect(rx+24,1025+j*18,36,6);}}
+ txt('RACKS · A + B',540,1150,20,MUT,'center','700');
+ // captions
+ let c1,c2;
+ if(ms<4500){c1='Two city feeds.';c2='Looks like redundancy.';}
+ else if(ms<9000){c1='Both come from the same substation.';c2='Two cables. One source.';}
+ else if(ms<14000){c1='One fault takes out both feeds.';c2='The UPS batteries carry the racks.';}
+ else if(ms<21000){c1='Stage 2: a generator on both ATS units.';c2='A real second source.';}
+ else {c1='Count power sources,';c2='not cables.';}
+ const k=[0,4500,9000,14000,21000].filter(v=>v<=ms).pop();const fa=ease(seg(ms,k,k+500));
+ x.save();x.globalAlpha=fa;x.fillStyle='rgba(5,15,35,0.55)';x.fillRect(0,1188,W,162);
+ txt(c1,W/2,1238,40,WHITE,'center','800');txt(c2,W/2,1292,32,ms>=21000?WHITE:CY,'center','700');x.restore();
+}
+window.renderAt=(ms)=>draw(((ms%DUR)+DUR)%DUR);
+{let s=performance.now();(function loop(){draw((performance.now()-s)%DUR);requestAnimationFrame(loop)})();}
+</script>
+</body>
+</html>
