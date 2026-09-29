@@ -22,102 +22,179 @@
 <style>
   :root{
     --bg:#0e1320; --bg2:#131a2b; --panel:#161e30; --panel2:#1c2740;
-    --ink:#eef2fb; --mut:#9db0d2; --soft:#c4d0e8;
+    --ink:#eef2fb; --mut:#9db0d2; --soft:#c4d0e8; --nav:#dfe7f7;
     --line:#243150; --accent:#5aa0f2; --accent2:#74d3c4; --chip:#1d2740;
-    --max:1000px;
+    --max:1080px; --hdr:68px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased}
+    background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  section,header.hero{scroll-margin-top:calc(var(--hdr) + 8px)}
 
-  /* nav */
-  nav{position:sticky;top:0;z-index:20;background:rgba(14,19,32,.86);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-  nav .brand{font-weight:700;letter-spacing:.2px}
-  nav .links{display:flex;gap:20px;flex-wrap:wrap}
-  nav .links a{color:var(--mut);font-size:14px;font-weight:500}
-  nav .links a:hover{color:var(--ink);text-decoration:none}
-  @media(max-width:760px){nav .links{display:none}}
-
-  /* hero */
-  header.hero{padding:70px 0 46px;
-    background:radial-gradient(1100px 460px at 15% -8%, rgba(90,160,242,.16), transparent 60%),
-               radial-gradient(900px 420px at 95% 0%, rgba(116,211,196,.10), transparent 55%);
-    border-bottom:1px solid var(--line)}
-  .eyebrow{color:var(--accent2);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
-  h1{font-size:46px;line-height:1.08;letter-spacing:-.6px;margin-bottom:16px}
-  .tag{font-size:20px;color:var(--soft);max-width:760px}
-  .sub{margin-top:14px;color:var(--mut);max-width:760px;font-size:16px}
-  .cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
-  .btn{display:inline-block;padding:11px 18px;border-radius:10px;font-weight:600;font-size:15px;border:1px solid var(--line)}
+  /* ===== header ===== */
+  .top{position:sticky;top:0;z-index:40;background:rgba(12,17,29,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;gap:18px;height:var(--hdr);max-width:1260px}
+  .brand{display:flex;flex-direction:column;line-height:1.15;color:var(--ink);cursor:pointer;background:none;border:0;font:inherit;text-align:left;padding:4px 6px;margin-left:-6px;border-radius:8px}
+  .brand b{white-space:nowrap;font-size:18px;letter-spacing:.2px}
+  .brand span{white-space:nowrap;font-size:12px;color:var(--accent2);font-weight:600;letter-spacing:.04em}
+  .brand:hover{background:var(--panel);text-decoration:none}
+  .menu{display:flex;gap:4px;margin-left:auto}
+  .menu a{white-space:nowrap;color:var(--nav);font-size:16px;font-weight:600;padding:8px 11px;border-radius:8px}
+  .menu a:hover{background:var(--panel2);text-decoration:none;color:#fff}
+  .menu a.active{background:rgba(90,160,242,.18);color:#fff;box-shadow:inset 0 -2px 0 var(--accent)}
+  .acts{display:flex;gap:8px;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;font-weight:700;font-size:15px;border:1px solid var(--line);cursor:pointer;font-family:inherit;line-height:1.2;white-space:nowrap}
+  .btn:hover{text-decoration:none}
   .btn.primary{background:var(--accent);color:#06121f;border-color:var(--accent)}
-  .btn.primary:hover{background:#6fb0f5;text-decoration:none}
+  .btn.primary:hover{background:#78b6f6}
   .btn.ghost{background:var(--panel);color:var(--ink)}
-  .btn.ghost:hover{background:var(--panel2);text-decoration:none}
-  .facts{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)} h1{font-size:34px}.tag{font-size:18px}}
-  .fact{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .btn.ghost:hover{background:var(--panel2)}
+  .btn.li{background:#0a66c2;border-color:#0a66c2;color:#fff}
+  .btn.li:hover{background:#1a78d6}
+  .btn svg{width:18px;height:18px;flex:none}
+  .burger{display:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;width:44px;height:42px;color:var(--ink);cursor:pointer}
+  .burger svg{width:22px;height:22px}
+  .mnav{display:none}
+  @media(max-width:1200px){.brand span{display:none}}
+  @media(max-width:980px){
+    .brand span{display:block}
+    .menu,.acts .hide-m{display:none}
+    .burger{display:inline-flex;align-items:center;justify-content:center}
+    .acts{margin-left:auto}
+    .mnav{position:fixed;top:var(--hdr);left:0;right:0;z-index:39;background:#0c111d;border-bottom:1px solid var(--line);padding:10px 22px 18px}
+    .mnav.open{display:block}
+    .mnav a{display:block;color:var(--nav);font-size:19px;font-weight:600;padding:13px 4px;border-bottom:1px solid var(--line)}
+    .mnav a:last-child{border-bottom:0}
+    .mnav .mbtns{display:flex;flex-wrap:wrap;gap:10px;padding-top:14px}
+    .mnav .mbtns a{border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:16px}
+  }
+  @media(max-width:520px){.brand span{display:none}}
+  @media(max-width:420px){.acts .btn.contact span{display:none}}
+  .mnav .mbtns a.li{background:#0a66c2;border-color:#0a66c2;color:#fff}
+
+  /* ===== hero ===== */
+  header.hero{padding:54px 0 40px;border-bottom:1px solid var(--line);
+    background:radial-gradient(1100px 460px at 15% -8%, rgba(90,160,242,.16), transparent 60%),
+               radial-gradient(900px 420px at 95% 0%, rgba(116,211,196,.10), transparent 55%)}
+  .hgrid{display:grid;grid-template-columns:190px 1fr;gap:34px;align-items:start}
+  .photo{width:190px;height:190px;border-radius:50%;object-fit:cover;border:3px solid var(--line);background:var(--panel)}
+  .eyebrow{color:var(--accent2);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:10px}
+  h1{font-size:44px;line-height:1.08;letter-spacing:-.6px;margin-bottom:12px}
+  .tag{font-size:19px;color:var(--soft);max-width:780px}
+  .sub{margin-top:10px;color:var(--mut);max-width:780px;font-size:16px}
+  .cta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  @media(max-width:760px){.hgrid{grid-template-columns:1fr;gap:18px}.photo{width:128px;height:128px}h1{font-size:34px}.tag{font-size:17px}}
+
+  .look{margin-top:30px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent2);border-radius:14px;padding:18px 22px}
+  .look h2{margin-bottom:12px}
+  .lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 22px}
+  .lgrid div b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+  .lgrid div span{color:var(--ink);font-size:15px}
+  @media(max-width:900px){.lgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.lgrid{grid-template-columns:1fr}}
+
+  .facts{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+  .fact{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .fact b{display:block;font-size:24px;color:var(--ink);letter-spacing:-.3px}
-  .fact span{color:var(--mut);font-size:13px}
+  .fact span{color:var(--mut);font-size:13px;line-height:1.4;display:block}
 
-  /* sections */
-  section{padding:48px 0;border-bottom:1px solid var(--line)}
-  h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
-  .h2sub{font-size:24px;font-weight:700;letter-spacing:-.3px;margin-bottom:22px}
-  .lead{font-size:18px;color:#dbe4f6;max-width:820px}
-  .lead + .lead{margin-top:14px}
-
-  /* competencies */
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
-  .comp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
-  .comp h3{font-size:16px;margin-bottom:10px;color:var(--ink)}
-  .comp .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{background:var(--chip);border:1px solid var(--line);color:#cdd9f0;padding:6px 11px;border-radius:999px;font-size:13.5px}
+  /* ===== sections ===== */
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);margin-bottom:6px}
+  .h2sub{font-size:25px;font-weight:700;letter-spacing:-.3px;margin-bottom:20px}
+  .lead{font-size:17px;color:#dbe4f6;max-width:860px}
+  .lead + .lead{margin-top:12px}
 
   /* cases */
-  .cards{display:grid;gap:16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
-  .card h3{font-size:20px;margin-bottom:4px}
-  .card .role{color:var(--mut);font-size:14px;margin-bottom:14px}
-  .badge{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;
-    letter-spacing:.04em;text-transform:uppercase;background:rgba(116,211,196,.14);color:var(--accent2);vertical-align:middle}
-  .card ul{list-style:none;display:grid;gap:9px}
-  .card li{position:relative;padding-left:18px;color:#cdd9f0;font-size:15.5px}
-  .card li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
-  .stack{margin-top:14px;color:var(--mut);font-size:13px;border-top:1px dashed var(--line);padding-top:12px}
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:860px){.cgrid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column}
+  .card h3{font-size:19px;line-height:1.3;margin-bottom:4px}
+  .card .role{color:var(--mut);font-size:13.5px;margin-bottom:10px}
+  .card p.sum{color:#d6e0f3;font-size:15.5px}
+  .kpis{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .kpi{background:rgba(90,160,242,.12);border:1px solid rgba(90,160,242,.28);color:#d7e6fb;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:600}
+  .badge{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(116,211,196,.14);color:var(--accent2);vertical-align:middle}
+  details{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  summary{cursor:pointer;color:var(--accent);font-weight:700;font-size:14.5px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary:before{content:"+ "}
+  details[open] summary:before{content:"− "}
+  details ul{list-style:none;display:grid;gap:8px;margin-top:10px}
+  details li{position:relative;padding-left:16px;color:#cdd9f0;font-size:14.5px}
+  details li:before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .stack{margin-top:10px;color:var(--mut);font-size:13px}
   .stack b{color:var(--soft);font-weight:600}
+  .more{margin-top:auto;padding-top:12px;font-weight:700;font-size:14.5px}
 
   /* timeline */
-  .tl{position:relative;margin-top:6px}
+  .tl{position:relative}
   .tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
-  .item{position:relative;padding:0 0 22px 32px}
-  .item:before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;
-    background:var(--bg);border:2px solid var(--accent)}
-  .item .top{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
-  .item .pos{font-weight:700;font-size:17px}
+  .item{position:relative;padding:0 0 16px 32px}
+  .item:before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+  .item .toprow{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+  .item .pos{font-weight:700;font-size:16.5px}
   .item .org{color:var(--mut);font-size:14px}
-  .item .when{color:var(--accent2);font-size:13px;font-weight:600;margin-left:auto}
-  .item p{color:#cdd9f0;font-size:15px;margin-top:6px;max-width:840px}
+  .item .when{color:var(--accent2);font-size:13px;font-weight:700;margin-left:auto}
+  .item p{color:#cdd9f0;font-size:14.5px;margin-top:4px;max-width:880px}
 
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:760px){.two{grid-template-columns:1fr}}
-  .block{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
-  .block h3{font-size:16px;margin-bottom:10px}
-  .block p, .block li{color:#cdd9f0;font-size:15px}
-  .block ul{list-style:none;display:grid;gap:7px}
-  .block li{position:relative;padding-left:16px}
+  .two{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+  .block{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .block h3{font-size:15.5px;margin-bottom:8px}
+  .block li{color:#cdd9f0;font-size:14.5px}
+  .block ul{list-style:none;display:grid;gap:6px}
+  .block li{position:relative;padding-left:14px}
   .block li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent2)}
 
-  footer{padding:46px 0 70px}
-  .contact{display:grid;gap:9px;font-size:16px;margin-top:6px}
-  .contact .row b{display:inline-block;min-width:104px;color:var(--mut);font-weight:600}
-  .fine{margin-top:24px;color:#6f80a3;font-size:13px;max-width:820px}
+  /* expertise */
+  .egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  @media(max-width:900px){.egrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.egrid{grid-template-columns:1fr}}
+  .comp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .comp h3{font-size:15.5px;margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:#cdd9f0;padding:5px 10px;border-radius:999px;font-size:13px}
+
+  /* articles */
+  .agrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:860px){.agrid{grid-template-columns:1fr}}
+  .art{display:grid;grid-template-columns:150px 1fr;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--ink)}
+  .art:hover{border-color:var(--accent);text-decoration:none}
+  .art svg{width:150px;height:100px;border-radius:10px;background:#0b1830;display:block}
+  .art h3{font-size:16.5px;line-height:1.3;color:#fff}
+  .art .d{color:var(--mut);font-size:12.5px;margin:3px 0 6px}
+  .art p{color:#c9d5ec;font-size:14px;line-height:1.5}
+  @media(max-width:480px){.art{grid-template-columns:1fr}.art svg{width:100%;height:120px}}
+
+  /* contact */
+  footer{padding:44px 0 80px}
+  .cgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:860px){.cgrid2{grid-template-columns:1fr}}
+  .cc{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--ink)}
+  .cc:hover{border-color:var(--accent);text-decoration:none}
+  .cc b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:3px}
+  .cc span{font-size:15.5px;font-weight:600;word-break:break-all}
+
+  /* contact dialog */
+  dialog{margin:auto;border:1px solid var(--line);border-radius:16px;background:#121a2b;color:var(--ink);padding:0;width:min(460px,92vw)}
+  dialog::backdrop{background:rgba(3,6,12,.7)}
+  .dlg{padding:22px 22px 18px}
+  .dlg h3{font-size:20px;margin-bottom:4px}
+  .dlg .muted{color:var(--mut);font-size:14px;margin-bottom:14px}
+  .dlg a.row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px;color:var(--ink);font-weight:600}
+  .dlg a.row:hover{border-color:var(--accent);text-decoration:none}
+  .dlg a.row small{color:var(--mut);font-weight:500}
+  .dlg .close{float:right;background:none;border:0;color:var(--mut);font-size:26px;line-height:1;cursor:pointer}
+  .copy{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer;margin-top:10px}
+
+  .totop{position:fixed;right:18px;bottom:18px;z-index:30;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#06121f;border:0;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+  .totop.show{opacity:1;pointer-events:auto}
 </style>
 <link rel="canonical" href="https://victorromanovsite.github.io/">
 <script type="application/ld+json">
@@ -126,7 +203,7 @@
   "@type": "Person",
   "name": "Victor Romanov",
   "url": "https://victorromanovsite.github.io/",
-  "image": "https://victorromanovsite.github.io/og-image.png",
+  "image": "https://victorromanovsite.github.io/articles/victor-romanov.jpg",
   "jobTitle": "AI Solutions Architect & Delivery Lead",
   "description": "Enterprise AI and LLM/RAG, cloud and data-center migration, technical proposals and presales. Fractional AI Architect / CTO. Remote worldwide, open to relocation.",
   "email": "mailto:victor.romanov.inbox@gmail.com",
@@ -137,34 +214,66 @@
 </head>
 <body>
 
-<nav>
+<div class="top">
   <div class="wrap">
-    <span class="brand">Victor Romanov</span>
-    <span class="links">
-      <a href="#profile">Profile</a>
-      <a href="#skills">Expertise</a>
-      <a href="#work">Selected work</a>
+    <a class="brand" href="#contact" data-contact title="Contact Victor Romanov"><b>Victor Romanov</b><span>AI Solutions Architect &amp; Delivery Lead</span></a>
+    <nav class="menu" aria-label="Sections">
+      <a href="#work">Work</a>
       <a href="#career">Career</a>
-      <a href="#education">Education</a>
+      <a href="#expertise">Expertise</a>
       <a href="#articles">Articles</a>
-      <a href="#contact">Contact</a>
-    </span>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Remote worldwide · Open to relocation</div>
-    <h1>Victor Romanov</h1>
-    <p class="tag">AI Solutions Architect &amp; Delivery Lead: enterprise AI and LLM/RAG, cloud and data-center migration, technical proposals and presales. Fractional AI Architect / CTO.</p>
-    <p class="sub">I design system architecture and drive it to a working product, and I lead the delivery, the vendors and the stakeholders around it. C-level track record at scale, now building AI-powered products end to end.</p>
-    <div class="cta">
-      <a class="btn primary" href="CV.pdf?v=5">Download CV (PDF)</a>
-      <a class="btn ghost" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn ghost" href="https://wa.me/381665375913" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="btn ghost" href="mailto:victor.romanov.inbox@gmail.com">Email</a>
-      <a class="btn ghost" href="https://t.me/victorromanov_it" target="_blank" rel="noopener">Telegram</a>
+      <a href="#contact" data-contact>Contact</a>
+    </nav>
+    <div class="acts">
+      <a class="btn li hide-m" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener" data-goatcounter-click="hdr-linkedin" aria-label="LinkedIn profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg>LinkedIn</a>
+      <a class="btn primary hide-m" href="CV.pdf?v=5" data-goatcounter-click="hdr-cv">Download CV</a>
+      <a class="btn ghost contact" href="#contact" data-contact><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span>Contact me</span></a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
+  </div>
+</div>
+<div class="mnav" id="mnav">
+  <a href="#work">Work</a>
+  <a href="#career">Career</a>
+  <a href="#expertise">Expertise</a>
+  <a href="#articles">Articles</a>
+  <a href="#contact" data-contact>Contact</a>
+  <div class="mbtns">
+    <a class="li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener" data-goatcounter-click="m-linkedin">LinkedIn</a>
+    <a href="CV.pdf?v=5" data-goatcounter-click="m-cv">Download CV (PDF)</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hgrid">
+      <img class="photo" src="articles/victor-romanov.jpg" alt="Victor Romanov" width="190" height="190">
+      <div>
+        <div class="eyebrow">Remote worldwide · Open to relocation</div>
+        <h1>Victor Romanov</h1>
+        <p class="tag">AI Solutions Architect &amp; Delivery Lead: enterprise AI and LLM/RAG, cloud and data-center migration, technical proposals and presales. Fractional AI Architect / CTO.</p>
+        <p class="sub">I design system architecture and drive it to a working product, and I lead the delivery, the vendors and the stakeholders around it. C-level track record at scale, now building AI-powered products end to end.</p>
+        <div class="cta">
+          <a class="btn primary" href="CV.pdf?v=5" data-goatcounter-click="hero-cv">Download CV (PDF)</a>
+          <a class="btn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener" data-goatcounter-click="hero-linkedin">LinkedIn</a>
+          <a class="btn ghost" href="https://wa.me/381665375913" target="_blank" rel="noopener" data-goatcounter-click="hero-whatsapp">WhatsApp</a>
+          <a class="btn ghost" href="mailto:victor.romanov.inbox@gmail.com" data-goatcounter-click="hero-email">Email</a>
+          <a class="btn ghost" href="https://t.me/victorromanov_it" target="_blank" rel="noopener" data-goatcounter-click="hero-telegram">Telegram</a>
+          <a class="btn ghost" href="tel:+381665375913" data-goatcounter-click="hero-phone">+381 66 537 59 13</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="look">
+      <h2>What I am looking for</h2>
+      <div class="lgrid">
+        <div><b>Roles</b><span>Solutions Architect · AI Consultant · Technical Program Manager · Technical Delivery Manager · Enterprise Architect</span></div>
+        <div><b>Work format</b><span>Relocation with employer visa sponsorship · Remote worldwide · Contract or fractional</span></div>
+        <div><b>Employment</b><span>Full-time · Part-time · Contract</span></div>
+        <div><b>Start</b><span>Immediately</span></div>
+      </div>
+    </div>
+
     <div class="facts">
       <div class="fact"><b>~90</b><span>team led building a bank's IT from scratch</span></div>
       <div class="fact"><b>4M+</b><span>customer accounts on a city-scale platform</span></div>
@@ -174,143 +283,86 @@
   </div>
 </header>
 
-<section id="profile">
-  <div class="wrap">
-    <h2>Profile</h2>
-    <div class="h2sub">Enterprise IT leadership at scale, meeting modern AI delivery</div>
-    <p class="lead">Solutions architect and technical delivery lead with a C-level background in enterprise IT: large-scale banking platforms, data centers, and infrastructure &amp; security systems. I pair that experience with modern solution design: architecting LLM/RAG systems, integrating them with real data and workflows, and driving them to a shipped product.</p>
-    <p class="lead">My approach is <b>AI-assisted delivery</b>: I own the architecture and the decisions, and use modern AI tooling to build and ship faster. I work best where serious infrastructure meets modern AI and a real stakeholder map: legacy modernization, cloud and data-center migration, AI integration, and getting cross-functional delivery over the line.</p>
-    <p class="lead">Most of my work ends as a document someone has to approve: a technical proposal, a tender response, a migration plan, a board deck. Much of it was written for public procurement, where the specification is scored line by line and the price is opened in public. I also review competing proposals as an independent expert.</p>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="wrap">
-    <h2>Expertise</h2>
-    <div class="h2sub">What I bring to a project</div>
-    <div class="grid2">
-      <div class="comp">
-        <h3>Presales &amp; Consulting</h3>
-        <div class="chips">
-          <span class="chip">Client discovery</span><span class="chip">Solution concepts</span>
-          <span class="chip">Technical proposals</span><span class="chip">RFP / RFI responses</span>
-          <span class="chip">PoC and prototypes</span><span class="chip">Demos for business</span>
-          <span class="chip">Deal costing</span><span class="chip">AI adoption roadmaps</span>
-        </div>
-      </div>
-      <div class="comp">
-        <h3>Architecture &amp; AI</h3>
-        <div class="chips">
-          <span class="chip">Solution architecture</span><span class="chip">System design</span>
-          <span class="chip">AI strategy</span><span class="chip">LLM / RAG integration</span>
-          <span class="chip">Semantic search (pgvector)</span><span class="chip">AI-assisted development</span>
-          <span class="chip">Multi-tenant SaaS</span><span class="chip">Workflow automation</span>
-        </div>
-      </div>
-      <div class="comp">
-        <h3>Infrastructure &amp; Cloud</h3>
-        <div class="chips">
-          <span class="chip">Data-center design &amp; migration</span><span class="chip">VMware vSAN</span>
-          <span class="chip">High availability / DR</span><span class="chip">RTO / RPO</span>
-          <span class="chip">Veeam</span><span class="chip">Cisco networking</span>
-          <span class="chip">Linux (RHEL, Ubuntu)</span><span class="chip">Virtualization</span>
-        </div>
-      </div>
-      <div class="comp">
-        <h3>Enterprise &amp; Security Systems</h3>
-        <div class="chips">
-          <span class="chip">CCTV / video surveillance</span><span class="chip">Access control (PACS)</span>
-          <span class="chip">Fire &amp; alarm systems</span><span class="chip">Structured cabling</span>
-          <span class="chip">Video conferencing</span><span class="chip">Microsoft → Open-source migration</span>
-        </div>
-      </div>
-      <div class="comp">
-        <h3>Delivery &amp; Leadership</h3>
-        <div class="chips">
-          <span class="chip">Technical program management</span><span class="chip">PMO / PMBOK</span>
-          <span class="chip">Team leadership</span><span class="chip">Multi-million-budget ownership</span>
-          <span class="chip">Vendor &amp; stakeholder management</span><span class="chip">ITIL</span>
-          <span class="chip">Tender / RFP</span><span class="chip">Fractional CTO</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="work">
   <div class="wrap">
     <h2>Selected work</h2>
     <div class="h2sub">Case studies</div>
-    <div class="cards">
+    <div class="cgrid">
 
       <div class="card">
         <h3>TenderSRB: AI SaaS for public-procurement monitoring</h3>
         <div class="role">Founder &amp; AI Solution Architect<span class="badge">Live · test operation</span></div>
-        <ul>
-          <li>A working multi-tenant platform, built with AI and running on AI agents, that monitors Serbian public tenders and surfaces the relevant ones automatically. Live in test operation with first subscribers, before paid launch.</li>
+        <p class="sum">A working multi-tenant platform, built with AI and running on AI agents, that monitors Serbian public tenders and surfaces the relevant ones automatically.</p>
+        <div class="kpis"><span class="kpi">Claude API</span><span class="kpi">PostgreSQL 16</span><span class="kpi">33 ADRs</span><span class="kpi">4,453 tests</span></div>
+        <details><summary>Details</summary><ul>
+          <li>Live in test operation with first subscribers, before paid launch.</li>
           <li>LLM pipeline (Claude API) reads the tender documents on request and writes structured summaries; AI also translates tender cards.</li>
           <li>Tender matching by CPV code, region, budget, deadline and keywords on PostgreSQL 16; semantic matching on pgvector is the next step. Delivery via a Telegram bot, email and a web cabinet.</li>
-          <li>CI/CD with automated AI code review; 33 ADRs and 4,453 automated tests. <a href="articles/tendersrb-case.html">Read the case study</a>.</li>
+          <li>CI/CD with automated AI code review; 33 ADRs and 4,453 automated tests.</li>
           <li>Second system: six tender bots on cloud infrastructure: monitoring of four procurement platforms, a combined digest, AI analysis of technical specifications and automated supplier requests.</li>
           <li>Architect and delivery lead across product, architecture, delivery and QA: I set the boundaries, assign tasks to people and AI agents, accept the result and own the assembly into a product.</li>
-        </ul>
-        <div class="stack"><b>Architecture:</b> FastAPI · PostgreSQL 16 / pgvector · Docker · Ubuntu 24.04 VPS · CI/CD with AI review · LLM (Claude API) · Telegram bot · email</div>
+        </ul><div class="stack"><b>Architecture:</b> FastAPI · PostgreSQL 16 / pgvector · Docker · Ubuntu 24.04 VPS · CI/CD with AI review · LLM (Claude API) · Telegram bot · email</div></details>
+        <a class="more" href="articles/tendersrb-case.html">Read the case study &rarr;</a>
       </div>
 
       <div class="card">
         <h3>Two-Site Data-Center Architecture and Migration</h3>
-        <div class="role">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead, own IT integration consultancy (flagship project)</div>
-        <ul>
+        <div class="role">Own IT integration consultancy · flagship project</div>
+        <p class="sum">A two-site architecture for critical IT infrastructure: a metro cluster over dark fibre with synchronous storage replication.</p>
+        <div class="kpis"><span class="kpi">10 sites scored</span><span class="kpi">132 units surveyed</span><span class="kpi">47 relocated</span><span class="kpi">30-min window</span></div>
+        <details><summary>Details</summary><ul>
           <li>Designed a two-site architecture for critical IT infrastructure. Ten facilities scored against nine weighted criteria; the winner came in at 0.911.</li>
           <li>Surveyed and documented 132 units and 148 connections across six racks before a single cable was pulled; 47 units relocated, the rest kept running in place by design.</li>
           <li>Metro cluster across two sites over dark fibre, with synchronous storage replication and a new network core paired with the old one. RTO 15 to 30 minutes, RPO 15 minutes, inside a 30-minute downtime window. Disaster recovery plan written and tested.</li>
-          <li>How the target site was chosen: <a href="articles/spoiled-for-choice.html">Spoiled for Choice. The Choice Was One.</a></li>
-        </ul>
-        <div class="stack"><b>Stack:</b> VMware vSAN · Veeam B&amp;R · Cisco Nexus (LACP) · dark-fiber metro-cluster · HA/DR · RTO/RPO</div>
-      </div>
-
-      <div class="card">
-        <h3>Open-source migration &amp; cost reduction</h3>
-        <div class="role">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead, own IT integration consultancy</div>
-        <ul>
-          <li>Led Microsoft-to-open-source transitions (RHEL, PostgreSQL, open mail stack), eliminating recurring Microsoft licensing costs.</li>
-          <li>Estimated 30-50% reduction in licensing TCO over a three-year horizon, depending on the estate.</li>
-          <li>Designed data-center and video-conferencing infrastructure; ran competitive tender selection for servers and storage; virtualization on VMware / Hyper-V.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Integrated physical-security &amp; infrastructure delivery</h3>
-        <div class="role">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead, own IT integration consultancy</div>
-        <ul>
-          <li>Projects integrating CCTV / video surveillance, access control (PACS), and fire &amp; alarm systems with seamless WiFi, frequently as a single converged system per site.</li>
-          <li>Across industrial sites, residential complexes and corporate offices, each with its own physical layout, compliance and uptime requirements.</li>
-          <li>Owned the full delivery lifecycle: site survey and design → equipment and vendor selection → structured cabling → installation, commissioning and handover.</li>
-          <li>Led a delivery team and managed vendors end to end; part of a portfolio of 93 delivered projects; peak annual turnover exceeding $2.4M.</li>
-        </ul>
-        <div class="stack"><b>Systems:</b> CCTV / video surveillance · Access control (PACS) · Fire &amp; alarm · Structured cabling · Seamless WiFi · Video conferencing</div>
+        </ul><div class="stack"><b>Stack:</b> VMware vSAN · Veeam B&amp;R · Cisco Nexus (LACP) · dark-fiber metro-cluster · HA/DR · RTO/RPO</div></details>
+        <a class="more" href="articles/spoiled-for-choice.html">How the target site was chosen (video) &rarr;</a>
       </div>
 
       <div class="card">
         <h3>Core-Banking Platform: A Bank Built From Scratch</h3>
         <div class="role">Managing Director, IT, major commercial bank · 2002-2010</div>
-        <ul>
-          <li>Built the bank's entire IT from the ground up with a team of ~90: core banking, card processing, an ATM network, 12 branches and two data centers.</li>
+        <p class="sum">Built the bank's entire IT from the ground up with a team of ~90: core banking, card processing, an ATM network, 12 branches and two data centers.</p>
+        <div class="kpis"><span class="kpi">Team ~90</span><span class="kpi">12 branches</span><span class="kpi">2 data centers</span><span class="kpi">RTO 10 min</span></div>
+        <details><summary>Details</summary><ul>
           <li>Established a PMBOK-based PMO that cut branch-opening cost ~19% and timelines ~22%; a technology committee reduced time-to-market ~24%.</li>
           <li>Implemented HA clustering with a 10-minute RTO and host-to-host integration with the card processor.</li>
-        </ul>
-        <div class="stack"><b>Scale:</b> Core banking (Equation) · Card processing · ATM network · 12 branches · 2 data centers · HA clustering (RTO 10 min)</div>
+        </ul><div class="stack"><b>Scale:</b> Core banking (Equation) · Card processing · ATM network · 12 branches · 2 data centers · HA clustering (RTO 10 min)</div></details>
       </div>
 
       <div class="card">
         <h3>City-Scale Utility-Billing Platform (4M+ Accounts)</h3>
         <div class="role">IT Director, large municipal IT operator · 2011-2012</div>
-        <ul>
-          <li>Ran IT for a billing platform covering ~80% of a major capital's housing stock, 4M+ customer accounts.</li>
+        <p class="sum">Ran IT for a billing platform covering ~80% of a major capital's housing stock, 4M+ customer accounts.</p>
+        <div class="kpis"><span class="kpi">4M+ accounts</span><span class="kpi">DC relocation</span><span class="kpi">DR rebuild</span><span class="kpi">24/7 ITIL</span></div>
+        <details><summary>Details</summary><ul>
           <li>Led a data-center relocation and a full disaster-recovery rebuild; launched a new data warehouse.</li>
           <li>Ran a 24/7 ITIL service desk with proactive monitoring; web-services integration with city systems; data-protection compliance certified (GDPR-equivalent).</li>
-        </ul>
-        <div class="stack"><b>Scope:</b> DC relocation · DR rebuild · Data warehouse · 24/7 ITIL service desk · Zabbix monitoring · Data-protection compliance</div>
+        </ul><div class="stack"><b>Scope:</b> DC relocation · DR rebuild · Data warehouse · 24/7 ITIL service desk · Zabbix monitoring · Data-protection compliance</div></details>
+      </div>
+
+      <div class="card">
+        <h3>Integrated physical-security &amp; infrastructure delivery</h3>
+        <div class="role">Own IT integration consultancy</div>
+        <p class="sum">CCTV, access control and fire &amp; alarm systems with seamless WiFi, often as one converged system per site, from survey to handover.</p>
+        <div class="kpis"><span class="kpi">93 projects</span><span class="kpi">&gt;$2.4M peak turnover</span><span class="kpi">Full lifecycle</span></div>
+        <details><summary>Details</summary><ul>
+          <li>Projects integrating CCTV / video surveillance, access control (PACS), and fire &amp; alarm systems with seamless WiFi, frequently as a single converged system per site.</li>
+          <li>Across industrial sites, residential complexes and corporate offices, each with its own physical layout, compliance and uptime requirements.</li>
+          <li>Owned the full delivery lifecycle: site survey and design → equipment and vendor selection → structured cabling → installation, commissioning and handover.</li>
+          <li>Led a delivery team and managed vendors end to end; part of a portfolio of 93 delivered projects; peak annual turnover exceeding $2.4M.</li>
+        </ul><div class="stack"><b>Systems:</b> CCTV / video surveillance · Access control (PACS) · Fire &amp; alarm · Structured cabling · Seamless WiFi · Video conferencing</div></details>
+        <a class="more" href="articles/two-feeds-one-source.html">Server room power: two feeds, one source &rarr;</a>
+      </div>
+
+      <div class="card">
+        <h3>Open-source migration &amp; cost reduction</h3>
+        <div class="role">Own IT integration consultancy</div>
+        <p class="sum">Microsoft-to-open-source transitions (RHEL, PostgreSQL, open mail stack) that removed recurring licensing costs.</p>
+        <div class="kpis"><span class="kpi">30-50% lower licensing TCO</span><span class="kpi">RHEL · PostgreSQL</span></div>
+        <details><summary>Details</summary><ul>
+          <li>Estimated 30-50% reduction in licensing TCO over a three-year horizon, depending on the estate.</li>
+          <li>Designed data-center and video-conferencing infrastructure; ran competitive tender selection for servers and storage; virtualization on VMware / Hyper-V.</li>
+        </ul></details>
       </div>
 
     </div>
@@ -322,71 +374,24 @@
     <h2>Career</h2>
     <div class="h2sub">From systems engineer to C-level, at scale</div>
     <div class="tl">
-
-      <div class="item">
-        <div class="top"><span class="pos">Founder &amp; AI Solution Architect</span><span class="org">TenderSRB (AI SaaS)</span><span class="when">2024-Present</span></div>
-        <p>Working AI SaaS for procurement monitoring, built with AI and running on AI agents. Live in test operation with first subscribers, before paid launch.</p>
-      </div>
-
-      <div class="item">
-        <div class="top"><span class="pos">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead</span><span class="org">IT integration consultancy (own company)</span><span class="when">2013-Present</span></div>
-        <p>Enterprise infrastructure, data-center and physical-security projects. Flagship: two-site data-center architecture (132 units surveyed, 47 relocated, RTO 15 to 30 min). Microsoft → open-source migrations; security-system projects; 93 projects delivered in total; peak annual turnover exceeding $2.4M. Lead a delivery team.</p>
-      </div>
-
-      <div class="item">
-        <div class="top"><span class="pos">Deputy General Director</span><span class="org">National telecom / IT services group</span><span class="when">2012-2013</span></div>
-        <p>Tender documentation and solution design for a large-scale utility-billing system spanning dozens of regions.</p>
-      </div>
-
-      <div class="item">
-        <div class="top"><span class="pos">IT Director</span><span class="org">Large municipal IT operator</span><span class="when">2011-2012</span></div>
-        <p>Ran IT for a city-scale billing platform covering ~80% of a major capital's housing stock, 4M+ customer accounts. Led data-center relocation, a disaster-recovery rebuild, a new data warehouse, 24/7 service desk and data-protection compliance.</p>
-      </div>
-
-      <div class="item">
-        <div class="top"><span class="pos">IT Director</span><span class="org">Multi-branch commercial bank</span><span class="when">2010-2011</span></div>
-        <p>Owned IT strategy and architecture, reporting to the Chairman of the Board: multi-branch core banking, corporate internet bank, acquiring, ATM cash-in/out and an ITIL service desk; oversaw 1,000 payment terminals across 374 railway stations.</p>
-      </div>
-
-      <div class="item">
-        <div class="top"><span class="pos">Managing Director, IT</span><span class="org">Major commercial bank (built from scratch)</span><span class="when">2002-2010</span></div>
-        <p>Built the bank's entire IT from the ground up with a team of ~90: core banking, card processing, an ATM network, 12 branches and two data centers. Established a PMBOK-based PMO that cut branch-opening cost ~19% and timelines ~22%; a technology committee reduced time-to-market ~24%. Implemented HA clustering with a 10-minute RTO and host-to-host processing integration.</p>
-      </div>
-
-      <div class="item">
-        <div class="top"><span class="pos">Chief Operating Officer</span><span class="org">IT integration / fiber-optic company</span><span class="when">1998-2002</span></div>
-        <p>Opened a profitable regional branch and built a retail sales division. Led development and certification of a fiber-optic cable product and set up its manufacturing. Delivered fiber-optic line projects from design to construction.</p>
-      </div>
-      <div class="item">
-        <div class="top"><span class="pos">Earlier career</span><span class="org">Engineer → IT department head</span><span class="when"></span></div>
-        <p>Engineering and IT management roles in banking, securities and IT integration: core banking implementation, back-office automation, exchange connectivity, processing-center infrastructure and structured cabling for financial institutions. Early engineering work spanned systems programming and custom hardware design for networking and specialized computing.</p>
-      </div>
-
+      <div class="item"><div class="toprow"><span class="pos">Founder &amp; AI Solution Architect</span><span class="org">TenderSRB (AI SaaS)</span><span class="when">2024-Present</span></div>
+        <p>Working AI SaaS for procurement monitoring, built with AI and running on AI agents. Live in test operation with first subscribers, before paid launch.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead</span><span class="org">IT integration consultancy (own company)</span><span class="when">2013-Present</span></div>
+        <p>Enterprise infrastructure, data-center and physical-security projects: 93 projects delivered, peak annual turnover exceeding $2.4M. Lead a delivery team.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">Deputy General Director</span><span class="org">National telecom / IT services group</span><span class="when">2012-2013</span></div>
+        <p>Tender documentation and solution design for a large-scale utility-billing system spanning dozens of regions.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">IT Director</span><span class="org">Large municipal IT operator</span><span class="when">2011-2012</span></div>
+        <p>City-scale billing platform, 4M+ customer accounts: data-center relocation, disaster-recovery rebuild, data warehouse, 24/7 service desk.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">IT Director</span><span class="org">Multi-branch commercial bank</span><span class="when">2010-2011</span></div>
+        <p>Owned IT strategy and architecture, reporting to the Chairman of the Board: multi-branch core banking, corporate internet bank, acquiring, ATM cash-in/out and an ITIL service desk; oversaw 1,000 payment terminals across 374 railway stations.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">Managing Director, IT</span><span class="org">Major commercial bank (built from scratch)</span><span class="when">2002-2010</span></div>
+        <p>Built the bank's entire IT from the ground up with a team of ~90: core banking, card processing, an ATM network, 12 branches and two data centers.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">Chief Operating Officer</span><span class="org">IT integration / fiber-optic company</span><span class="when">1998-2002</span></div>
+        <p>Opened a profitable regional branch and built a retail sales division. Led development and certification of a fiber-optic cable product and set up its manufacturing. Delivered fiber-optic line projects from design to construction.</p></div>
+      <div class="item"><div class="toprow"><span class="pos">Earlier career</span><span class="org">Engineer → IT department head</span></div>
+        <p>Engineering and IT management roles in banking, securities and IT integration: core banking implementation, back-office automation, exchange connectivity, processing-center infrastructure and structured cabling for financial institutions. Early engineering work spanned systems programming and custom hardware design for networking and specialized computing. Earlier projects: video-on-demand platforms on set-top-box hardware with broadcast media content, and SMS/MMS content-delivery services integrated across national mobile operators for a major consumer brand.</p></div>
     </div>
-  </div>
-</section>
 
-<section id="projects">
-  <div class="wrap">
-    <h2>Earlier projects</h2>
-    <div class="h2sub">Selected media &amp; telecom builds</div>
-    <div class="two">
-      <div class="block">
-        <h3>VoD &amp; broadcast media platforms</h3>
-        <p>Designed and delivered video-on-demand platforms on set-top-box hardware with broadcast media content, including a self-built delivery platform for a flagship venue.</p>
-      </div>
-      <div class="block">
-        <h3>SMS / MMS content delivery</h3>
-        <p>Built SMS/MMS content-delivery services integrated across national mobile operators for a major consumer brand.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="education">
-  <div class="wrap">
-    <h2>Education, Certifications &amp; Languages</h2>
-    <div class="h2sub">Engineering foundations, business and continuous learning</div>
     <div class="two">
       <div class="block">
         <h3>Education</h3>
@@ -396,10 +401,10 @@
         </ul>
       </div>
       <div class="block">
-        <h3>Certifications &amp; professional development</h3>
+        <h3>Certifications</h3>
         <ul>
           <li><b>Recent:</b> Foundations of Project Management (Google) · Google IT Support (5-course specialization) · Google IT Security · Cisco Network Security · Red Hat RHEL Fundamentals · Python (University of Michigan) · JavaScript / HTML / CSS (Duke University) · Physical AI Architecture Foundations (LinkedIn Learning)</li>
-          <li><b>Earlier:</b> PMBOK / Project Management · ACCA F3 · SWIFT (×2) · Information Security fundamentals · Retail Banking and Plastic Cards program</li>
+          <li><b>Earlier:</b> PMBOK / Project Management · SWIFT (×2) · Information Security fundamentals · Retail Banking and Plastic Cards program</li>
         </ul>
       </div>
       <div class="block">
@@ -414,31 +419,48 @@
   </div>
 </section>
 
+<section id="expertise">
+  <div class="wrap">
+    <h2>About &amp; expertise</h2>
+    <div class="h2sub">Enterprise IT leadership at scale, meeting modern AI delivery</div>
+    <p class="lead">Solutions architect and technical delivery lead with a C-level background in enterprise IT: large-scale banking platforms, data centers, and infrastructure &amp; security systems. I pair that experience with modern solution design: architecting LLM/RAG systems, integrating them with real data and workflows, and driving them to a shipped product.</p>
+    <p class="lead">My approach is <b>AI-assisted delivery</b>: I own the architecture and the decisions, and use modern AI tooling to build and ship faster. Most of my work ends as a document someone has to approve: a technical proposal, a tender response, a migration plan, a board deck. Much of it was written for public procurement, where the specification is scored line by line and the price is opened in public. I also review competing proposals as an independent expert.</p>
+    <div class="egrid">
+      <div class="comp"><h3>Presales &amp; Consulting</h3><div class="chips">
+        <span class="chip">Client discovery</span><span class="chip">Solution concepts</span><span class="chip">Technical proposals</span><span class="chip">RFP / RFI responses</span><span class="chip">PoC and prototypes</span><span class="chip">Demos for business</span><span class="chip">Deal costing</span><span class="chip">AI adoption roadmaps</span></div></div>
+      <div class="comp"><h3>Architecture &amp; AI</h3><div class="chips">
+        <span class="chip">Solution architecture</span><span class="chip">System design</span><span class="chip">AI strategy</span><span class="chip">LLM / RAG integration</span><span class="chip">PostgreSQL / pgvector</span><span class="chip">AI-assisted development</span><span class="chip">Multi-tenant SaaS</span><span class="chip">Workflow automation</span></div></div>
+      <div class="comp"><h3>Infrastructure &amp; Cloud</h3><div class="chips">
+        <span class="chip">Data-center design &amp; migration</span><span class="chip">VMware vSAN</span><span class="chip">High availability / DR</span><span class="chip">RTO / RPO</span><span class="chip">Veeam</span><span class="chip">Cisco networking</span><span class="chip">Linux (RHEL, Ubuntu)</span><span class="chip">Virtualization</span></div></div>
+      <div class="comp"><h3>Enterprise &amp; Security Systems</h3><div class="chips">
+        <span class="chip">CCTV / video surveillance</span><span class="chip">Access control (PACS)</span><span class="chip">Fire &amp; alarm systems</span><span class="chip">Structured cabling</span><span class="chip">Video conferencing</span><span class="chip">Microsoft → Open-source migration</span></div></div>
+      <div class="comp"><h3>Delivery &amp; Leadership</h3><div class="chips">
+        <span class="chip">Technical program management</span><span class="chip">PMO / PMBOK</span><span class="chip">Team leadership</span><span class="chip">Multi-million-budget ownership</span><span class="chip">Vendor &amp; stakeholder management</span><span class="chip">ITIL</span><span class="chip">Tender / RFP</span><span class="chip">Fractional CTO</span></div></div>
+    </div>
+  </div>
+</section>
+
 <section id="articles">
   <div class="wrap">
     <h2>Articles</h2>
-    <div class="h2sub">Notes on AI, learning and delivery</div>
-    <div class="cards">
-      <div class="card">
-        <h3><a href="articles/tendersrb-case.html">TenderSRB: an AI Service That Reads Public Tenders</a></h3>
-        <div class="role">29 September 2026 &middot; Case study</div>
-        <p class="lead">What the client gets, the architecture with animated data flows, five key decisions and how two AI agents build the product under my control.</p>
-      </div>
-      <div class="card">
-        <h3><a href="articles/two-feeds-one-source.html">Two City Power Feeds, One Source</a></h3>
-        <div class="role">29 September 2026</div>
-        <p class="lead">Two feeds looked like redundancy, but both came from the same substation. How a generator became the real second source.</p>
-      </div>
-      <div class="card">
-        <h3><a href="articles/your-own-car.html">Your Own Car for the Price of a Bus Ticket</a></h3>
-        <div class="role">23 September 2026</div>
-        <p class="lead">Why adults go back to learning, and how AI lets you build your own course instead of taking someone else&rsquo;s bus.</p>
-      </div>
-      <div class="card">
-        <h3><a href="articles/spoiled-for-choice.html">Spoiled for Choice. The Choice Was One.</a></h3>
-        <div class="role">13 August 2026</div>
-        <p class="lead">A tour operator split its system across two data centers in one metrocluster. Dark fiber reach and weighted criteria left one site out of dozens.</p>
-      </div>
+    <div class="h2sub">Notes on AI, infrastructure and delivery</div>
+    <div class="agrid">
+      <a class="art" href="articles/tendersrb-case.html">
+        <svg viewBox="0 0 150 100" aria-hidden="true"><g fill="none" stroke-width="2.5"><rect x="12" y="38" width="28" height="24" rx="5" stroke="#8fa3c9"/><rect x="61" y="38" width="28" height="24" rx="5" stroke="#74d3c4"/><rect x="110" y="38" width="28" height="24" rx="5" stroke="#38e1ff"/><path d="M42 50h15M91 50h15" stroke="#34e39b"/><path d="M75 36V20h-30" stroke="#b18cff"/></g><circle cx="50" cy="50" r="3" fill="#34e39b"/><circle cx="99" cy="50" r="3" fill="#38e1ff"/><text x="75" y="86" fill="#9db0d2" font-size="10" text-anchor="middle" font-family="Segoe UI,Arial">portal · AI · client</text></svg>
+        <div><h3>TenderSRB: an AI Service That Reads Public Tenders</h3><div class="d">29 September 2026 · Case study</div><p>What the client gets, the architecture with animated data flows, five key decisions and how two AI agents build the product under my control.</p></div>
+      </a>
+      <a class="art" href="articles/two-feeds-one-source.html">
+        <svg viewBox="0 0 150 100" aria-hidden="true"><rect x="55" y="12" width="40" height="18" rx="4" fill="none" stroke="#ff606e" stroke-width="2.5"/><path d="M65 30v18M85 30v18" stroke="#34e39b" stroke-width="3"/><rect x="45" y="50" width="60" height="18" rx="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="120" cy="59" r="10" fill="none" stroke="#ffb454" stroke-width="2.5"/><path d="M110 59h-5" stroke="#ffb454" stroke-width="2.5"/><text x="75" y="88" fill="#9db0d2" font-size="10" text-anchor="middle" font-family="Segoe UI,Arial">2 feeds · 1 source</text></svg>
+        <div><h3>Two City Power Feeds, One Source</h3><div class="d">29 September 2026</div><p>Two feeds looked like redundancy, but both came from the same substation. How a generator became the real second source.</p></div>
+      </a>
+      <a class="art" href="articles/spoiled-for-choice.html">
+        <svg viewBox="0 0 150 100" aria-hidden="true"><ellipse cx="75" cy="48" rx="52" ry="34" fill="rgba(90,160,242,.10)" stroke="#8fa3c9" stroke-width="1.5"/><circle cx="60" cy="40" r="22" fill="none" stroke="#38e1ff" stroke-width="2"/><circle cx="60" cy="40" r="4" fill="#ffc25a"/><circle cx="72" cy="50" r="3.5" fill="#34e39b"/><circle cx="100" cy="60" r="3" fill="#ff606e"/><circle cx="40" cy="64" r="3" fill="#ff606e"/><text x="75" y="94" fill="#9db0d2" font-size="10" text-anchor="middle" font-family="Segoe UI,Arial">dozens of sites · one left</text></svg>
+        <div><h3>Spoiled for Choice. The Choice Was One.</h3><div class="d">13 August 2026 · Video</div><p>A tour operator split its system across two data centers in one metrocluster. Dark fiber reach and weighted criteria left one site out of dozens.</p></div>
+      </a>
+      <a class="art" href="articles/your-own-car.html">
+        <svg viewBox="0 0 150 100" aria-hidden="true"><path d="M10 80 C50 70 60 40 140 22" stroke="#8fa3c9" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M10 80 C50 70 60 40 140 22" stroke="#0b1830" stroke-width="1.5" stroke-dasharray="6 6" fill="none"/><rect x="62" y="40" width="22" height="12" rx="3" fill="#74d3c4" transform="rotate(-24 73 46)"/><text x="75" y="94" fill="#9db0d2" font-size="10" text-anchor="middle" font-family="Segoe UI,Arial">learning with AI</text></svg>
+        <div><h3>Your Own Car for the Price of a Bus Ticket</h3><div class="d">23 September 2026</div><p>Why adults go back to learning, and how AI lets you build your own course instead of taking someone else&rsquo;s bus.</p></div>
+      </a>
     </div>
   </div>
 </section>
@@ -447,16 +469,59 @@
   <div class="wrap">
     <h2>Contact</h2>
     <div class="h2sub">Let's talk</div>
-    <div class="contact">
-      <div class="row"><b>Location</b> Remote worldwide, open to relocation to any country</div>
-      <div class="row"><b>Email</b> <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div>
-      <div class="row"><b>LinkedIn</b> <a href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">linkedin.com/in/romanovvictor</a></div>
-      <div class="row"><b>WhatsApp</b> <a href="https://wa.me/381665375913" target="_blank" rel="noopener">+381 66 537 5913</a></div>
-      <div class="row"><b>Telegram</b> <a href="https://t.me/victorromanov_it" target="_blank" rel="noopener">@victorromanov_it</a></div>
-      <div class="row"><b>CV</b> <a href="CV.pdf?v=5" target="_blank" rel="noopener">Download PDF</a></div>
+    <div class="cgrid2">
+      <a class="cc" href="mailto:victor.romanov.inbox@gmail.com" data-goatcounter-click="ft-email"><b>Email</b><span>victor.romanov.inbox@gmail.com</span></a>
+      <a class="cc" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener" data-goatcounter-click="ft-linkedin"><b>LinkedIn</b><span>linkedin.com/in/romanovvictor</span></a>
+      <a class="cc" href="CV.pdf?v=5" data-goatcounter-click="ft-cv"><b>CV</b><span>Download PDF</span></a>
+      <a class="cc" href="https://wa.me/381665375913" target="_blank" rel="noopener" data-goatcounter-click="ft-whatsapp"><b>WhatsApp</b><span>+381 66 537 5913</span></a>
+      <a class="cc" href="https://t.me/victorromanov_it" target="_blank" rel="noopener" data-goatcounter-click="ft-telegram"><b>Telegram</b><span>@victorromanov_it</span></a>
+      <div class="cc"><b>Location</b><span>Remote worldwide, open to relocation to any country</span></div>
     </div>
   </div>
 </footer>
 
+<dialog id="cdlg" aria-label="Contact Victor Romanov">
+  <div class="dlg">
+    <button class="close" id="cclose" aria-label="Close">&times;</button>
+    <h3>Contact Victor Romanov</h3>
+    <p class="muted">Remote worldwide, open to relocation. I reply within one working day.</p>
+    <a class="row" href="mailto:victor.romanov.inbox@gmail.com" data-goatcounter-click="dlg-email">Email <small>victor.romanov.inbox@gmail.com</small></a>
+    <a class="row" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener" data-goatcounter-click="dlg-linkedin">LinkedIn <small>romanovvictor</small></a>
+    <a class="row" href="https://wa.me/381665375913" target="_blank" rel="noopener" data-goatcounter-click="dlg-whatsapp">WhatsApp <small>+381 66 537 5913</small></a>
+    <a class="row" href="https://t.me/victorromanov_it" target="_blank" rel="noopener" data-goatcounter-click="dlg-telegram">Telegram <small>@victorromanov_it</small></a>
+    <a class="row" href="CV.pdf?v=5" data-goatcounter-click="dlg-cv">CV <small>Download PDF</small></a>
+    <button class="copy" id="copymail">Copy email address</button>
+  </div>
+</dialog>
+
+<button class="totop" id="totop" aria-label="Back to top">&uarr;</button>
+
+<script>
+(function(){
+  var dlg=document.getElementById('cdlg');
+  function openC(e){ if(dlg && dlg.showModal){ e.preventDefault(); closeM(); dlg.showModal(); } }
+  document.querySelectorAll('[data-contact]').forEach(function(a){ a.addEventListener('click',openC); });
+  document.getElementById('cclose').addEventListener('click',function(){ dlg.close(); });
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+  document.getElementById('copymail').addEventListener('click',function(){
+    var b=this; navigator.clipboard && navigator.clipboard.writeText('victor.romanov.inbox@gmail.com').then(function(){ b.textContent='Copied'; setTimeout(function(){ b.textContent='Copy email address'; },1800); });
+  });
+  var burger=document.getElementById('burger'), mnav=document.getElementById('mnav');
+  function closeM(){ mnav.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  burger.addEventListener('click',function(){ var o=mnav.classList.toggle('open'); burger.setAttribute('aria-expanded',o?'true':'false'); });
+  mnav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ if(!a.hasAttribute('data-contact')) closeM(); }); });
+  var links=[].slice.call(document.querySelectorAll('.menu a[href^="#"]'));
+  var ids=['work','career','expertise','articles','contact'];
+  function spy(){
+    var y=window.scrollY+120, cur='';
+    ids.forEach(function(id){ var s=document.getElementById(id); if(s && s.offsetTop<=y) cur=id; });
+    if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4) cur='contact';
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
+    document.getElementById('totop').classList.toggle('show', window.scrollY>700);
+  }
+  window.addEventListener('scroll',spy,{passive:true}); spy();
+  document.getElementById('totop').addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();
+</script>
 </body>
 </html>
