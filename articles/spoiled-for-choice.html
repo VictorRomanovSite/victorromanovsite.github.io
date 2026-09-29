@@ -33,6 +33,30 @@
   .tags{color:var(--accent2);font-size:15px;margin-top:10px}
   footer{border-top:1px solid var(--line);padding:26px 0 50px;color:var(--mut);font-size:14px}
   @media(max-width:760px){h1{font-size:30px} .blk{font-size:17px}}
+
+  /* shared site header and author block (v8) */
+  nav.anav{position:sticky;top:0;z-index:30;background:rgba(12,17,29,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav.anav .aw{max-width:1260px;display:flex;align-items:center;gap:16px;height:64px}
+  .abrand{display:flex;flex-direction:column;line-height:1.15;color:var(--ink)}
+  .abrand b{font-size:17px;white-space:nowrap} .abrand span{font-size:12px;color:var(--accent2);font-weight:600;white-space:nowrap}
+  .abrand:hover{text-decoration:none}
+  .amenu{display:flex;gap:2px;margin-left:auto}
+  .amenu a{color:#dfe7f7;font-size:15.5px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap}
+  .amenu a:hover{background:#1c2740;text-decoration:none;color:#fff}
+  .aacts{display:flex;gap:8px}
+  .abtn{display:inline-flex;align-items:center;padding:9px 14px;border-radius:10px;font-weight:700;font-size:14.5px;border:1px solid var(--line);white-space:nowrap;line-height:1.2;color:var(--ink);background:var(--panel)}
+  .abtn:hover{text-decoration:none;background:#1c2740}
+  .abtn.li{background:#0a66c2;border-color:#0a66c2;color:#fff} .abtn.li:hover{background:#1a78d6}
+  .abtn.pr{background:var(--accent);border-color:var(--accent);color:#06121f} .abtn.pr:hover{background:#78b6f6}
+  @media(max-width:1100px){.abrand span{display:none}}
+  @media(max-width:900px){.amenu{display:none}.aacts{margin-left:auto}}
+  @media(max-width:420px){.aacts .abtn.pr{display:none}}
+  .author{padding:8px 0 34px}
+  .abox{display:flex;gap:18px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .abox img{width:92px;height:92px;border-radius:50%;flex:none;border:2px solid var(--line)}
+  .abox b{font-size:18px;color:var(--ink)} .abox p{color:var(--soft);font-size:15px;margin:4px 0 12px}
+  .abtns{display:flex;flex-wrap:wrap;gap:8px}
+  @media(max-width:560px){.abox{flex-direction:column;align-items:flex-start}}
 </style>
 <link rel="canonical" href="https://victorromanovsite.github.io/articles/spoiled-for-choice.html">
 <script type="application/ld+json">
@@ -50,7 +74,7 @@
 </script>
 </head>
 <body>
-<nav><div class="wrap"><a class="brand" href="../">Victor Romanov</a><a class="back" href="../">&larr; Main page</a></div></nav>
+<nav class="anav"><div class="wrap aw"><a class="abrand" href="../"><b>Victor Romanov</b><span>AI Solutions Architect &amp; Delivery Lead</span></a><div class="amenu"><a href="../#work">Work</a><a href="../#career">Career</a><a href="../#expertise">Expertise</a><a href="../#articles">Articles</a><a href="../#contact">Contact</a></div><div class="aacts"><a class="abtn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a><a class="abtn pr" href="../CV.pdf?v=5">Download CV</a></div></div></nav>
 <header><div class="wrap">
   <div class="eyebrow">Post</div>
   <h1>Spoiled for Choice. The Choice Was One.</h1>
@@ -103,6 +127,7 @@ The constraints choose.</p>
 <p class="blk end">You just read them in the right order ...</p>
 <p class="tags">#DataCenter #Infrastructure #SolutionArchitecture #DisasterRecovery #EnterpriseIT</p>
 </article>
+<section class="author"><div class="wrap"><div class="abox"><img src="victor-romanov.jpg" alt="Victor Romanov" width="92" height="92"><div><b>Victor Romanov</b><p>AI Solutions Architect &amp; Delivery Lead. Remote worldwide, open to relocation.</p><div class="abtns"><a class="abtn pr" href="../CV.pdf?v=5">Download CV (PDF)</a><a class="abtn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a><a class="abtn" href="mailto:victor.romanov.inbox@gmail.com">Email</a><a class="abtn" href="https://wa.me/381665375913" target="_blank" rel="noopener">WhatsApp</a><a class="abtn" href="https://t.me/victorromanov_it" target="_blank" rel="noopener">Telegram</a><a class="abtn" href="tel:+381665375913">+381 66 537 59 13</a></div></div></div></div></section>
 </main>
 <footer><div class="wrap"><a href="../">Victor Romanov</a> &middot; <a href="https://www.linkedin.com/in/romanovvictor">LinkedIn</a> &middot; <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div></footer>
 </body>
