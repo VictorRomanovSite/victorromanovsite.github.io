@@ -20,5 +20,6 @@
 
 ## Articles
 
+- [TenderSRB case study](https://victorromanovsite.github.io/articles/tendersrb-case.html): what the client gets, the architecture with data flows, five key decisions and the delivery model.
 - [Two City Power Feeds, One Source](https://victorromanovsite.github.io/articles/two-feeds-one-source.html): two city feeds came from one substation, and a generator became the real second source.
 - [Your Own Car for the Price of a Bus Ticket](https://victorromanovsite.github.io/articles/your-own-car.html): why adults go back to learning, and how AI lets you build your own course.

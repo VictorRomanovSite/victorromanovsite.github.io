@@ -248,13 +248,13 @@
         <div class="role">Founder &amp; AI Solution Architect<span class="badge">Live · test operation</span></div>
         <ul>
           <li>A working multi-tenant platform, built with AI and running on AI agents, that monitors Serbian public tenders and surfaces the relevant ones automatically. Live in test operation with first subscribers, before paid launch.</li>
-          <li>LLM pipeline (Claude API) parses tender specifications into structured summaries and AI-generated email digests.</li>
-          <li>Semantic tender matching over PostgreSQL 16 + pgvector; multi-channel delivery via Telegram and Viber bots and a web cabinet.</li>
-          <li>CI/CD with automated AI code review and auto-deploy; architecture documented across 32 ADRs.</li>
+          <li>LLM pipeline (Claude API) reads the tender documents on request and writes structured summaries; AI also translates tender cards.</li>
+          <li>Tender matching by CPV code, region, budget, deadline and keywords on PostgreSQL 16; semantic matching on pgvector is the next step. Delivery via a Telegram bot, email and a web cabinet.</li>
+          <li>CI/CD with automated AI code review; 33 ADRs and 4,453 automated tests. <a href="articles/tendersrb-case.html">Read the case study</a>.</li>
           <li>Second system: six tender bots on cloud infrastructure: monitoring of four procurement platforms, a combined digest, AI analysis of technical specifications and automated supplier requests.</li>
           <li>Architect and delivery lead across product, architecture, delivery and QA: I set the boundaries, assign tasks to people and AI agents, accept the result and own the assembly into a product.</li>
         </ul>
-        <div class="stack"><b>Architecture:</b> FastAPI · PostgreSQL 16 / pgvector · Docker · Ubuntu 24.04 VPS · CI/CD with AI review · LLM (Claude API) · Telegram / Viber bots</div>
+        <div class="stack"><b>Architecture:</b> FastAPI · PostgreSQL 16 / pgvector · Docker · Ubuntu 24.04 VPS · CI/CD with AI review · LLM (Claude API) · Telegram bot · email</div>
       </div>
 
       <div class="card">
@@ -418,6 +418,11 @@
     <h2>Articles</h2>
     <div class="h2sub">Notes on AI, learning and delivery</div>
     <div class="cards">
+      <div class="card">
+        <h3><a href="articles/tendersrb-case.html">TenderSRB: an AI Service That Reads Public Tenders</a></h3>
+        <div class="role">29 September 2026 &middot; Case study</div>
+        <p class="lead">What the client gets, the architecture with animated data flows, five key decisions and how two AI agents build the product under my control.</p>
+      </div>
       <div class="card">
         <h3><a href="articles/two-feeds-one-source.html">Two City Power Feeds, One Source</a></h3>
         <div class="role">29 September 2026</div>
