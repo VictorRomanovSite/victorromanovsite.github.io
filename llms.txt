@@ -1,0 +1,24 @@
+# Victor Romanov
+
+> AI Solutions Architect and Delivery Lead. Enterprise AI, LLM and RAG, cloud and data-center migration, technical proposals and presales. Fractional AI Architect or CTO. Remote worldwide, open to relocation.
+
+## Profile
+
+- Designs AI and infrastructure solutions and leads delivery from the technical proposal to production.
+- Built the IT function of a major commercial bank from scratch and led a team of about 90 people.
+- Own IT integration consultancy since 2013: 93 delivered projects, peak annual turnover exceeding $2.4M.
+- Project types: data-center migration, CCTV, access control, fire alarm, seamless WiFi, data-center power.
+- Founder and AI Solution Architect of TenderSRB, a working multi-tenant AI SaaS for public-procurement monitoring, built with AI and running on AI agents.
+
+## Links
+
+- [Website](https://victorromanovsite.github.io/)
+- [CV (PDF)](https://victorromanovsite.github.io/CV.pdf)
+- [LinkedIn](https://www.linkedin.com/in/romanovvictor)
+- [TenderSRB](https://app.nab.rs)
+- Email: victor.romanov.inbox@gmail.com
+
+## Articles
+
+- [Two City Power Feeds, One Source](https://victorromanovsite.github.io/articles/two-feeds-one-source.html): two city feeds came from one substation, and a generator became the real second source.
+- [Your Own Car for the Price of a Bus Ticket](https://victorromanovsite.github.io/articles/your-own-car.html): why adults go back to learning, and how AI lets you build your own course.
