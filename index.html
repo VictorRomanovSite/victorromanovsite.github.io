@@ -11,14 +11,14 @@
 <meta property="og:description" content="Enterprise IT leadership at scale meets modern AI delivery. Solution architecture, data-center migration, LLM/RAG. Remote worldwide, open to relocation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://victorromanovsite.github.io/">
-<meta property="og:image" content="https://victorromanovsite.github.io/og-image.png?v=2">
+<meta property="og:image" content="https://victorromanovsite.github.io/og-image.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Victor Romanov | AI Solutions Architect & Delivery Lead. Enterprise IT, data-center migration, LLM/RAG.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Victor Romanov | AI Solutions Architect & Delivery Lead">
 <meta name="twitter:description" content="Enterprise IT leadership at scale meets modern AI delivery. Solution architecture, data-center migration, LLM/RAG. Remote worldwide, open to relocation.">
-<meta name="twitter:image" content="https://victorromanovsite.github.io/og-image.png?v=2">
+<meta name="twitter:image" content="https://victorromanovsite.github.io/og-image.png?v=3">
 <style>
   :root{
     --bg:#0e1320; --bg2:#131a2b; --panel:#161e30; --panel2:#1c2740;
@@ -133,15 +133,17 @@
   .more{margin-top:auto;padding-top:12px;font-weight:700;font-size:14.5px}
 
   /* timeline */
-  .tl{position:relative}
-  .tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
-  .item{position:relative;padding:0 0 16px 32px}
-  .item:before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
-  .item .toprow{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
-  .item .pos{font-weight:700;font-size:16.5px}
-  .item .org{color:var(--mut);font-size:14px}
-  .item .when{color:var(--accent2);font-size:13px;font-weight:700;margin-left:auto}
-  .item p{color:#cdd9f0;font-size:14.5px;margin-top:4px;max-width:880px}
+  .roles{border-top:1px solid var(--line)}
+  .roles .role{padding:16px 0 14px;border-bottom:1px solid var(--line)}
+  .roles .role .rh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
+  .roles .role .pos{font-weight:700;font-size:16.5px;color:var(--ink)}
+  .roles .role .org{color:var(--accent2);font-weight:600;font-size:15px}
+  .roles .role .when{color:var(--accent2);font-size:14px;font-weight:700;margin-left:auto;white-space:nowrap}
+  .roles .role ul{list-style:none;margin-top:8px;max-width:900px}
+  .roles .role li{position:relative;padding-left:18px;color:#cdd9f0;font-size:14.5px;margin-top:4px}
+  .roles .role li:before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent2)}
+  .roles .role li b{color:var(--ink);font-weight:700}
+  @media(max-width:600px){.roles .role .when{margin-left:0;width:100%}}
 
   .two{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:22px}
   @media(max-width:860px){.two{grid-template-columns:1fr}}
@@ -373,23 +375,15 @@
   <div class="wrap">
     <h2>Career</h2>
     <div class="h2sub">From systems engineer to C-level, at scale</div>
-    <div class="tl">
-      <div class="item"><div class="toprow"><span class="pos">Founder &amp; AI Solution Architect</span><span class="org">TenderSRB (AI SaaS)</span><span class="when">2024-Present</span></div>
-        <p>Working AI SaaS for procurement monitoring, built with AI and running on AI agents. Live in test operation with first subscribers, before paid launch.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead</span><span class="org">IT integration consultancy (own company)</span><span class="when">2013-Present</span></div>
-        <p>Enterprise infrastructure, data-center and physical-security projects: 93 projects delivered, peak annual turnover exceeding $2.4M. Lead a delivery team.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">Deputy General Director</span><span class="org">National telecom / IT services group</span><span class="when">2012-2013</span></div>
-        <p>Tender documentation and solution design for a large-scale utility-billing system spanning dozens of regions.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">IT Director</span><span class="org">Large municipal IT operator</span><span class="when">2011-2012</span></div>
-        <p>City-scale billing platform, 4M+ customer accounts: data-center relocation, disaster-recovery rebuild, data warehouse, 24/7 service desk.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">IT Director</span><span class="org">Multi-branch commercial bank</span><span class="when">2010-2011</span></div>
-        <p>Owned IT strategy and architecture, reporting to the Chairman of the Board: multi-branch core banking, corporate internet bank, acquiring, ATM cash-in/out and an ITIL service desk; oversaw 1,000 payment terminals across 374 railway stations.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">Managing Director, IT</span><span class="org">Major commercial bank (built from scratch)</span><span class="when">2002-2010</span></div>
-        <p>Built the bank's entire IT from the ground up with a team of ~90: core banking, card processing, an ATM network, 12 branches and two data centers.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">Chief Operating Officer</span><span class="org">IT integration / fiber-optic company</span><span class="when">1998-2002</span></div>
-        <p>Opened a profitable regional branch and built a retail sales division. Led development and certification of a fiber-optic cable product and set up its manufacturing. Delivered fiber-optic line projects from design to construction.</p></div>
-      <div class="item"><div class="toprow"><span class="pos">Earlier career</span><span class="org">Engineer → IT department head</span></div>
-        <p>Engineering and IT management roles in banking, securities and IT integration: core banking implementation, back-office automation, exchange connectivity, processing-center infrastructure and structured cabling for financial institutions. Early engineering work spanned systems programming and custom hardware design for networking and specialized computing. Earlier projects: video-on-demand platforms on set-top-box hardware with broadcast media content, and SMS/MMS content-delivery services integrated across national mobile operators for a major consumer brand.</p></div>
+    <div class="roles">
+      <div class="role"><div class="rh"><span class="pos">Founder &amp; AI Solution Architect</span><span class="org">TenderSRB (AI SaaS)</span><span class="when">2024-Present</span></div><ul><li><b>Product:</b> a working multi-tenant AI SaaS that monitors Serbian public tenders, built with AI and running on AI agents. In test operation with first subscribers, before paid launch.</li><li><b>Matching and delivery:</b> every new tender is checked against each company profile. Matches go to Telegram, email and a web dashboard.</li><li><b>AI:</b> with one button, the Claude API reads the tender documents and lists the requirements, risks and deadlines.</li><li><b>Scale:</b> 55,291 tenders processed, 28,143 notifications sent, 33 architecture decision records.</li><li><b>Role:</b> I set the boundaries, give tasks to people and AI agents, accept the result and assemble it into the product.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead</span><span class="org">IT integration consultancy (own company)</span><span class="when">2013-Present</span></div><ul><li><b>Portfolio:</b> 93 projects confirmed by contracts and acceptance acts, 66 counterparties, peak annual turnover over $2.4M.</li><li><b>Flagship:</b> two-site architecture for critical IT infrastructure. Ten sites scored against nine weighted criteria, 132 units surveyed, 47 relocated. Cutover over a dark-fibre metro cluster inside a 30-minute downtime window, with the disaster recovery plan tested.</li><li><b>Facility layer:</b> UPS with bypass, ATS, generator tie-in, earthing, load calculations, in-row cooling with cold-aisle containment, commissioning and handover.</li><li><b>Presales:</b> technical proposals, tender documentation and deal costing before the bid. Independent expert review of competing proposals.</li><li><b>Security systems:</b> CCTV, access control, fire alarm and seamless WiFi for industrial sites, residential complexes and office buildings. Lead a delivery team.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">Deputy General Director</span><span class="org">National telecom / IT services group</span><span class="when">2012-2013</span></div><ul><li><b>Presales:</b> technical and commercial proposals and public-tender documentation for regional clients.</li><li><b>Solution design:</b> a utility-billing system for dozens of regions, reporting to the General Director.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">IT Director</span><span class="org">Large municipal IT operator</span><span class="when">2011-2012</span></div><ul><li><b>Scale:</b> a city-scale billing platform covering about 80% of a major capital's housing stock, 4M+ customer accounts.</li><li><b>Delivery:</b> data-center relocation, disaster-recovery rebuild, new data warehouse, 24/7 service desk.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">IT Director</span><span class="org">Multi-branch commercial bank</span><span class="when">2010-2011</span></div><ul><li><b>Strategy:</b> IT strategy and architecture, reporting to the Chairman of the Board.</li><li><b>Platforms:</b> multi-branch core banking, corporate internet bank, acquiring, ATM cash-in/out, ITIL service desk.</li><li><b>Payment network:</b> design of a network of 1,000 payment terminals across 374 railway stations.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">Managing Director, IT</span><span class="org">Major commercial bank (built from scratch)</span><span class="when">2002-2010</span></div><ul><li><b>Build:</b> the bank's entire IT from the ground up with a team of about 90: core banking, card processing, ATM network, 12 branches and two data centers.</li><li><b>Growth:</b> when the portfolio grew to several parallel projects, I set up a PMBOK-based PMO. Branch-opening cost about 19% lower, timelines about 22% shorter.</li><li><b>Reliability:</b> HA clustering with a 10-minute RTO.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">Chief Operating Officer</span><span class="org">IT integration / fiber-optic company</span><span class="when">1998-2002</span></div><ul><li><b>Growth:</b> opened a profitable regional branch and built a retail sales division.</li><li><b>Product:</b> led development and certification of a fiber-optic cable product and set up its manufacturing. Delivered fiber-optic line projects from design to construction.</li></ul></div>
+      <div class="role"><div class="rh"><span class="pos">Earlier career</span><span class="org">Engineer to IT department head</span></div><ul><li><b>Banking and integration:</b> core banking implementation, back-office automation, exchange connectivity, processing-center infrastructure and structured cabling for financial institutions.</li><li><b>Engineering foundation:</b> systems programming and custom hardware design for networking and specialized computing.</li></ul></div>
     </div>
 
     <div class="two">
