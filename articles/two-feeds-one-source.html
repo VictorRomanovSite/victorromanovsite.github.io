@@ -57,6 +57,9 @@
   .abox b{font-size:18px;color:var(--ink)} .abox p{color:var(--soft);font-size:15px;margin:4px 0 12px}
   .abtns{display:flex;flex-wrap:wrap;gap:8px}
   @media(max-width:560px){.abox{flex-direction:column;align-items:flex-start}}
+  .kf{margin:0 0 26px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent2);border-radius:12px;padding:14px 18px}
+  .kf h2{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin:0 0 6px}
+  .kf ul{margin:0;padding-left:18px} .kf li{margin:4px 0;font-size:15.5px}
 </style>
 <link rel="canonical" href="https://victorromanovsite.github.io/articles/two-feeds-one-source.html">
 <script type="application/ld+json">
@@ -86,6 +89,7 @@
 </div></header>
 <main class="wrap">
 <article>
+<aside class="kf"><h2>Key facts</h2><ul><li><b>Situation:</b> a server room had two city power feeds, but both came from the same substation.</li><li><b>Risk:</b> one fault at that substation would take out both feeds at the same time.</li><li><b>Solution:</b> a generator connected to both ATS units, a bus-tie switch, two UPS lines and A and B PDUs in every rack.</li></ul></aside>
 <p class="blk">Two city power feeds.<br>
 That looks like redundancy.</p>
 <p class="blk">But in one of my server room projects, both feeds came from the same substation.<br>

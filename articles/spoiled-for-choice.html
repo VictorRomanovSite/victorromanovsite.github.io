@@ -57,6 +57,9 @@
   .abox b{font-size:18px;color:var(--ink)} .abox p{color:var(--soft);font-size:15px;margin:4px 0 12px}
   .abtns{display:flex;flex-wrap:wrap;gap:8px}
   @media(max-width:560px){.abox{flex-direction:column;align-items:flex-start}}
+  .kf{margin:0 0 26px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent2);border-radius:12px;padding:14px 18px}
+  .kf h2{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin:0 0 6px}
+  .kf ul{margin:0;padding-left:18px} .kf li{margin:4px 0;font-size:15.5px}
 </style>
 <link rel="canonical" href="https://victorromanovsite.github.io/articles/spoiled-for-choice.html">
 <script type="application/ld+json">
@@ -82,6 +85,7 @@
 </div></header>
 <main class="wrap">
 <article>
+<aside class="kf"><h2>Key facts</h2><ul><li><b>Task:</b> a large tour operator ran all its IT from one data center. The critical half had to move to a second site, and both sites had to run as one metrocluster.</li><li><b>Main limit:</b> dark fiber reach of about 30 km by cable route, not by the straight line on a map.</li><li><b>Result:</b> out of dozens of data centers, weighted criteria left one site at about 18 km of fiber.</li></ul></aside>
 <p class="blk">A large tour operator ran its entire business from a single data center.<br>
 Bookings, payments, the lot.<br>
 One hall. One power chain. One very bad day when the engineering plant failed and everything went dark for hours.</p>
