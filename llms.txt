@@ -10,6 +10,11 @@
 - Project types: data-center migration, CCTV, access control, fire alarm, seamless WiFi, data-center power.
 - Founder and AI Solution Architect of TenderSRB, a working multi-tenant AI SaaS for public-procurement monitoring, built with AI and running on AI agents.
 
+## Target roles
+
+- Solutions Architect, Presales Solution Architect (AI), Enterprise Architect, AI Consultant, IT Director / CIO.
+- Remote worldwide or relocation with employer visa sponsorship.
+
 ## Links
 
 - [Website](https://victorromanovsite.github.io/)
