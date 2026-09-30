@@ -197,6 +197,15 @@
 
   .totop{position:fixed;right:18px;bottom:18px;z-index:30;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#06121f;border:0;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
   .totop.show{opacity:1;pointer-events:auto}
+  /* v10: collapsed career on mobile, quick facts, key facts */
+  .more-career{display:none;margin-top:14px}
+  .more-skills{display:none;margin-top:14px}
+  @media(max-width:600px){.roles.collapsed .role:nth-child(n+4){display:none}.more-career{display:inline-flex}#career.cc .two{display:none}.egrid.collapsed{display:none}.more-skills{display:inline-flex}}
+  .qf{margin:18px 0 6px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+  .qf h3{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
+  .qf dl{display:grid;grid-template-columns:170px 1fr;gap:6px 14px;font-size:15px}
+  .qf dt{color:var(--mut);font-weight:600} .qf dd{color:var(--ink)}
+  @media(max-width:600px){.qf dl{grid-template-columns:1fr}.qf dd{margin-bottom:6px}}
 </style>
 <link rel="canonical" href="https://victorromanovsite.github.io/">
 <script type="application/ld+json">
@@ -295,7 +304,6 @@
     </nav>
     <div class="acts">
       <a class="btn li hide-m" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener" data-goatcounter-click="hdr-linkedin" aria-label="LinkedIn profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg>LinkedIn</a>
-      <a class="btn primary hide-m" href="CV.pdf?v=6" data-goatcounter-click="hdr-cv">Download CV</a>
       <a class="btn ghost contact" href="#contact" data-contact><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span>Contact me</span></a>
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
@@ -336,7 +344,7 @@
     <div class="look">
       <h2>What I am looking for</h2>
       <div class="lgrid">
-        <div><b>Roles</b><span>Solutions Architect · Presales Solution Architect (AI) · Enterprise Architect · AI Consultant · IT Director / CIO</span></div>
+        <div><b>Roles</b><span>Solutions Architect<br>Presales Solution Architect (AI)<br>Enterprise Architect<br>AI Consultant<br>IT Director / CIO</span></div>
         <div><b>Work format</b><span>Relocation with employer visa sponsorship · Remote worldwide · Contract or fractional</span></div>
         <div><b>Employment</b><span>Full-time · Part-time · Contract</span></div>
         <div><b>Start</b><span>Immediately</span></div>
@@ -438,11 +446,11 @@
   </div>
 </section>
 
-<section id="career">
+<section id="career" class="cc">
   <div class="wrap">
     <h2>Career</h2>
     <div class="h2sub">From systems engineer to C-level, at scale</div>
-    <div class="roles">
+    <div class="roles collapsed" id="roles"><!--v10-->
       <div class="role"><div class="rh"><span class="pos">Founder &amp; AI Solution Architect</span><span class="org">TenderSRB (AI SaaS)</span><span class="when">2024-Present</span></div><ul><li><b>Product:</b> a working multi-tenant AI SaaS that monitors Serbian public tenders, built with AI and running on AI agents. In test operation with first subscribers, before paid launch.</li><li><b>Matching and delivery:</b> every new tender is checked against each company profile. Matches go to Telegram, email and a web dashboard.</li><li><b>AI:</b> with one button, the Claude API reads the tender documents and lists the requirements, risks and deadlines.</li><li><b>Scale:</b> 55,291 tenders processed, 28,143 notifications sent, 33 architecture decision records.</li><li><b>Role:</b> I set the boundaries, give tasks to people and AI agents, accept the result and assemble it into the product.</li></ul></div>
       <div class="role"><div class="rh"><span class="pos">Founder &amp; Principal Solutions Architect · Presales &amp; Delivery Lead</span><span class="org">IT integration consultancy (own company)</span><span class="when">2013-Present</span></div><ul><li><b>Portfolio:</b> 93 projects confirmed by contracts and acceptance acts, 66 counterparties, peak annual turnover over $2.4M.</li><li><b>Flagship:</b> two-site architecture for critical IT infrastructure. Ten sites scored against nine weighted criteria, 132 units surveyed, 47 relocated. Cutover over a dark-fibre metro cluster inside a 30-minute downtime window, with the disaster recovery plan tested.</li><li><b>Facility layer:</b> UPS with bypass, ATS, generator tie-in, earthing, load calculations, in-row cooling with cold-aisle containment, commissioning and handover.</li><li><b>Presales:</b> technical proposals, tender documentation and deal costing before the bid. Independent expert review of competing proposals.</li><li><b>Security systems:</b> CCTV, access control, fire alarm and seamless WiFi for industrial sites, residential complexes and office buildings. Lead a delivery team.</li></ul></div>
       <div class="role"><div class="rh"><span class="pos">Deputy General Director</span><span class="org">National telecom / IT services group</span><span class="when">2012-2013</span></div><ul><li><b>Presales:</b> technical and commercial proposals and public-tender documentation for regional clients.</li><li><b>Solution design:</b> a utility-billing system for dozens of regions, reporting to the General Director.</li></ul></div>
@@ -452,6 +460,7 @@
       <div class="role"><div class="rh"><span class="pos">Chief Operating Officer</span><span class="org">IT integration / fiber-optic company</span><span class="when">1998-2002</span></div><ul><li><b>Growth:</b> opened a profitable regional branch and built a retail sales division.</li><li><b>Product:</b> led development and certification of a fiber-optic cable product and set up its manufacturing. Delivered fiber-optic line projects from design to construction.</li></ul></div>
       <div class="role"><div class="rh"><span class="pos">Earlier career</span><span class="org">Engineer to IT department head</span></div><ul><li><b>Banking and integration:</b> core banking implementation, back-office automation, exchange connectivity, processing-center infrastructure and structured cabling for financial institutions.</li><li><b>Engineering foundation:</b> systems programming and custom hardware design for networking and specialized computing.</li></ul></div>
     </div>
+    <button class="btn ghost more-career" id="moreCareer" type="button" aria-expanded="false">Show full career</button>
 
     <div class="two">
       <div class="block">
@@ -486,7 +495,18 @@
     <div class="h2sub">Enterprise IT leadership at scale, meeting modern AI delivery</div>
     <p class="lead">Solutions architect and technical delivery lead with a C-level background in enterprise IT: large-scale banking platforms, data centers, and infrastructure &amp; security systems. I pair that experience with modern solution design: architecting LLM/RAG systems, integrating them with real data and workflows, and driving them to a shipped product.</p>
     <p class="lead">My approach is <b>AI-assisted delivery</b>: I own the architecture and the decisions, and use modern AI tooling to build and ship faster. Most of my work ends as a document someone has to approve: a technical proposal, a tender response, a migration plan, a board deck. Much of it was written for public procurement, where the specification is scored line by line and the price is opened in public. I also review competing proposals as an independent expert.</p>
-    <div class="egrid">
+    <div class="qf"><h3>Quick facts</h3><dl>
+      <dt>Name</dt><dd>Victor Romanov</dd>
+      <dt>Role</dt><dd>AI Solutions Architect &amp; Delivery Lead, Fractional AI Architect / CTO</dd>
+      <dt>Track record</dt><dd>Built a commercial bank's IT from scratch with a team of about 90. Ran IT for a city-scale billing platform with 4M+ accounts. 93 projects in own practice since 2013.</dd>
+      <dt>Current work</dt><dd>Founder and AI Solution Architect of TenderSRB, a working AI SaaS for public-procurement monitoring, built with AI and running on AI agents.</dd>
+      <dt>Target roles</dt><dd>Solutions Architect, Presales Solution Architect (AI), Enterprise Architect, AI Consultant, IT Director / CIO.</dd>
+      <dt>Work format</dt><dd>Remote worldwide or relocation with employer visa sponsorship.</dd>
+      <dt>Languages</dt><dd>English (B2), Russian (native), Serbian (elementary).</dd>
+      <dt>Contact</dt><dd><a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a> · <a href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a></dd>
+    </dl></div>
+    <button class="btn ghost more-skills" id="moreSkills" type="button" aria-expanded="false">Show all skills</button>
+    <div class="egrid collapsed" id="egrid">
       <div class="comp"><h3>Presales &amp; Consulting</h3><div class="chips">
         <span class="chip">Client discovery</span><span class="chip">Solution concepts</span><span class="chip">Technical proposals</span><span class="chip">RFP / RFI responses</span><span class="chip">PoC and prototypes</span><span class="chip">Demos for business</span><span class="chip">Deal costing</span><span class="chip">AI adoption roadmaps</span></div></div>
       <div class="comp"><h3>Architecture &amp; AI</h3><div class="chips">
@@ -583,6 +603,10 @@
   window.addEventListener('scroll',spy,{passive:true}); spy();
   document.getElementById('totop').addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
 })();
+</script>
+<script>
+(function(){var b=document.getElementById('moreCareer'),r=document.getElementById('roles');if(!b||!r)return;b.addEventListener('click',function(){var c=r.classList.toggle('collapsed');document.getElementById('career').classList.toggle('cc',c);b.textContent=c?'Show full career':'Show less';b.setAttribute('aria-expanded',String(!c));});})();
+(function(){var b=document.getElementById('moreSkills'),g=document.getElementById('egrid');if(!b||!g)return;b.addEventListener('click',function(){var c=g.classList.toggle('collapsed');b.textContent=c?'Show all skills':'Hide skills';b.setAttribute('aria-expanded',String(!c));});})();
 </script>
 </body>
 </html>
