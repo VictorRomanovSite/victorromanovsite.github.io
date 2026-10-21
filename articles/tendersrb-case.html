@@ -6,7 +6,7 @@
 <title>TenderSRB Case Study: an AI Service That Reads Public Tenders | Victor Romanov</title>
 <link rel="icon" href="../favicon.ico?v=1" sizes="any">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png?v=1">
-<meta name="description" content="Case study of TenderSRB, a working multi-tenant AI SaaS that monitors Serbian public procurement, reads tender documents with AI and delivers only relevant tenders. Architecture, key decisions and delivery by Victor Romanov.">
+<meta name="description" content="Case study of TenderSRB, a working multi-tenant AI SaaS that monitors public procurement in Serbia and the Western Balkans, reads tender documents with AI and delivers only relevant tenders. Architecture, key decisions and delivery by Victor Romanov.">
 <meta property="og:title" content="TenderSRB: an AI Service That Reads Public Tenders">
 <meta property="og:description" content="What the client gets, the architecture with animated data flows, five key decisions and the delivery model behind a working AI SaaS for public procurement.">
 <meta property="og:type" content="article">
@@ -87,7 +87,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "TenderSRB Case Study: an AI Service That Reads Public Tenders",
-  "description": "Case study of TenderSRB, a working multi-tenant AI SaaS that monitors Serbian public procurement, reads tender documents with AI and delivers only relevant tenders.",
+  "description": "Case study of TenderSRB, a working multi-tenant AI SaaS that monitors public procurement in Serbia and the Western Balkans, reads tender documents with AI and delivers only relevant tenders.",
   "datePublished": "2026-09-29",
   "dateModified": "2026-09-29",
   "author": {"@type": "Person", "name": "Victor Romanov", "url": "https://victorromanovsite.github.io/"},
@@ -98,21 +98,21 @@
 </script>
 </head>
 <body>
-<nav class="anav"><div class="wrap aw"><a class="abrand" href="../"><b>Victor Romanov</b><span>AI Solutions Architect &amp; Delivery Lead</span></a><div class="amenu"><a href="../#work">Work</a><a href="../#career">Career</a><a href="../#expertise">Expertise</a><a href="../#articles">Articles</a><a href="../#contact">Contact</a></div><div class="aacts"><a class="abtn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a><a class="abtn pr" href="../CV.pdf?v=6">Download CV</a></div></div></nav>
+<nav class="anav"><div class="wrap aw"><a class="abrand" href="../"><b>Victor Romanov</b><span>Presales Solutions Architect</span></a><div class="amenu"><a href="../#work">Work</a><a href="../#career">Career</a><a href="../#expertise">Expertise</a><a href="../#articles">Articles</a><a href="../#contact">Contact</a></div><div class="aacts"><a class="abtn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a><a class="abtn pr" href="../Victor_Romanov_CV.pdf?v=7">Download CV</a></div></div></nav>
 <header><div class="wrap">
   <div class="eyebrow">Case study</div>
   <h1>TenderSRB: an AI Service That Reads Public Tenders</h1>
-  <div class="meta">Victor Romanov &middot; Founder and AI Solution Architect &middot; Working product in test operation &middot; Figures on 29 September 2026 &middot; <a href="https://app.nab.rs">app.nab.rs</a></div>
+  <div class="meta">Victor Romanov &middot; Founder and AI Solution Architect &middot; Working product in open beta &middot; Figures on 20 October 2026 &middot; <a href="https://app.nab.rs">app.nab.rs</a></div>
   <div class="facts">
-    <div class="fact"><b>55,291</b><span>tenders in the database</span></div>
-    <div class="fact"><b>28,143</b><span>notifications sent</span></div>
-    <div class="fact"><b>4,453</b><span>automated tests</span></div>
-    <div class="fact"><b>33</b><span>architecture decision records</span></div>
+    <div class="fact"><b>60,500+</b><span>tenders processed</span></div>
+    <div class="fact"><b>28,700+</b><span>notifications delivered</span></div>
+    <div class="fact"><b>7,700+</b><span>automated tests</span></div>
+    <div class="fact"><b>34</b><span>architecture decision records</span></div>
   </div>
 </div></header>
 <main class="wrap">
 <article>
-<aside class="kf"><h2>Key facts</h2><ul><li><b>Product:</b> a working multi-tenant AI SaaS that monitors Serbian public tenders, built with AI and running on AI agents.</li><li><b>Scale on 29 September 2026:</b> 55,291 tenders processed and 28,143 notifications sent.</li><li><b>Delivery:</b> Telegram, email and a web dashboard. With one button, the Claude API reads the tender documents.</li><li><b>My role:</b> founder and architect. I set the boundaries, give tasks to people and AI agents and accept the result.</li></ul></aside>
+<aside class="kf"><h2>Key facts</h2><ul><li><b>Product:</b> a working multi-tenant AI SaaS that monitors public tenders in Serbia and the Western Balkans, built with AI and running on AI agents.</li><li><b>Scale on 20 October 2026:</b> 60,500+ tenders processed and 28,700+ notifications delivered from 7 live data sources.</li><li><b>Delivery:</b> Telegram, email and a web dashboard. With one button, the Claude API reads the tender documents.</li><li><b>My role:</b> founder and architect. I set the boundaries, give tasks to people and AI agents and accept the result.</li></ul></aside>
 
 <h2>The task</h2>
 <p class="blk">A supplier who bids on public tenders has to watch the state procurement portal every day.<br>
@@ -324,22 +324,34 @@ When the portal is overloaded, the intake slows down on its own.<br>
 From the first phase, the data model also has a country registry, so a new market needs a new source, not a new product.</p>
 
 <h2>How it was built</h2>
-<p class="blk">I am the architect and the delivery lead.<br>
-I set the boundaries, give tasks to people and AI agents, accept the result and assemble it into the product.<br>
-Two AI agents do the daily engineering work.<br>
-The coordinator agent sets tasks, checks the result with its own runs and accepts the changes.<br>
-The worker agent writes the code and the tests, and adds a document with the commands to repeat every check.<br>
-Every change passes the linter, the formatter, the full test suite with a coverage threshold and an automated review in CI.<br>
-Changes to database migrations, security and authorization, payments, infrastructure and the public site wait for my manual approval.<br>
-Everything else merges automatically after a green CI run.<br>
+<p class="blk">I am the architect and the owner of the product.<br>
+I set the goals, the limits and the budget, give tasks to people and AI agents and accept the result.<br>
+A coordinator agent checks that a task has real value in the data, then writes a short brief.<br>
+A worker agent writes the code and the tests in an isolated branch and opens a draft pull request.<br>
+A second agent reviews the change.<br>
+The coordinator runs the quality gate again and checks the live site after release.<br>
+Every change passes the linter, the formatter and the full test suite with a coverage threshold.<br>
+Every new test must fail when its fix is removed.<br>
+High risk changes go only through me: database migrations, deployment, sign in and billing.<br>
+751 pull requests were merged this way between 2 May and 20 October 2026.<br>
 The service runs on a VPS in Europe, deploys from the main branch with one command and is checked after every deploy.</p>
+
+<h3>Three incidents that changed the rules</h3>
+<ul class="pts">
+<li>A report said the gate passed, but the gate ran before the last commit.<br>Now the gate runs after the final commit, and the coordinator runs it again.</li>
+<li>A pull request was merged before anyone reviewed it.<br>Now every pull request is a draft, and a hook blocks the rest.</li>
+<li>Six planned tasks were not real problems.<br>Now every task starts with a check of the real data.</li>
+</ul>
+
+<p class="blk">Public code: <a href="https://github.com/TnSrb1/nabrs" target="_blank" rel="noopener">github.com/TnSrb1/nabrs</a><br>
+Agent workflow: <a href="https://github.com/TnSrb1/agent-ops" target="_blank" rel="noopener">github.com/TnSrb1/agent-ops</a></p>
 
 <div class="stack"><b>Stack:</b> Python &middot; FastAPI &middot; PostgreSQL 16 + pgvector &middot; Redis 7 &middot; aiogram 3 &middot; Jinja2 + HTMX &middot; Claude API &middot; Docker Compose &middot; Caddy (TLS) &middot; GitHub CI</div>
 
 <h2>Status</h2>
-<p class="blk">The platform works on real data in test operation.<br>
-By 29 September 2026 it holds 55,291 tenders and has sent 28,143 notifications.<br>
-The code base has 878 commits since May 2026.<br>
+<p class="blk">The platform works on real data in open beta, free during the beta.<br>
+By 20 October 2026 it has processed 60,500+ tenders and delivered 28,700+ notifications.<br>
+The code base has 1,329 commits since May 2026.<br>
 Plans: Free, Pro at 29 euro per month, Business at 79 euro per month, and Enterprise on request.<br>
 Stripe payments are built in the code: subscription checkout, webhooks, renewal and expiry emails.<br>
 They will go live when the company details are ready.</p>
@@ -354,7 +366,7 @@ They will go live when the company details are ready.</p>
 The same pattern fits any stream of documents that a team must not miss.</p>
 
 </article>
-<section class="author"><div class="wrap"><div class="abox"><img src="victor-romanov.jpg" alt="Victor Romanov" width="92" height="92"><div><b>Victor Romanov</b><p>AI Solutions Architect &amp; Delivery Lead. Remote worldwide, open to relocation.</p><div class="abtns"><a class="abtn pr" href="../CV.pdf?v=6">Download CV (PDF)</a><a class="abtn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a><a class="abtn" href="mailto:victor.romanov.inbox@gmail.com">Email</a><a class="abtn" href="https://wa.me/381665375913" target="_blank" rel="noopener">WhatsApp</a><a class="abtn" href="https://t.me/victorromanov_it" target="_blank" rel="noopener">Telegram</a><a class="abtn" href="tel:+381665375913">+381 66 537 59 13</a></div></div></div></div></section>
+<section class="author"><div class="wrap"><div class="abox"><img src="victor-romanov.jpg" alt="Victor Romanov" width="92" height="92"><div><b>Victor Romanov</b><p>Presales Solutions Architect. Remote worldwide, open to relocation.</p><div class="abtns"><a class="abtn pr" href="../Victor_Romanov_CV.pdf?v=7">Download CV (PDF)</a><a class="abtn li" href="https://www.linkedin.com/in/romanovvictor" target="_blank" rel="noopener">LinkedIn</a><a class="abtn" href="mailto:victor.romanov.inbox@gmail.com">Email</a><a class="abtn" href="https://wa.me/381665375913" target="_blank" rel="noopener">WhatsApp</a><a class="abtn" href="https://t.me/victorromanov_it" target="_blank" rel="noopener">Telegram</a><a class="abtn" href="tel:+381665375913">+381 66 537 59 13</a></div></div></div></div></section>
 
 </main>
 <footer><div class="wrap"><a href="../">Victor Romanov</a> &middot; <a href="https://www.linkedin.com/in/romanovvictor">LinkedIn</a> &middot; <a href="mailto:victor.romanov.inbox@gmail.com">victor.romanov.inbox@gmail.com</a></div></footer>
