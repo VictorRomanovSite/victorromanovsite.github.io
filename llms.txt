@@ -20,7 +20,7 @@
 - [Website](https://victorromanovsite.github.io/)
 - [CV (PDF)](https://victorromanovsite.github.io/Victor_Romanov_CV.pdf)
 - [LinkedIn](https://www.linkedin.com/in/romanovvictor)
-- [TenderSRB](https://app.nab.rs)
+- [TenderSRB](https://nab.rs)
 - Email: victor.romanov.inbox@gmail.com
 
 ## Articles
